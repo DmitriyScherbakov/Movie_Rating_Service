@@ -18,7 +18,7 @@ public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "event_id")
-    private int eventId;
+    private long eventId;
 
     @Column(name = "event_timestamp", nullable = false)
     private LocalDateTime eventTimestamp;
@@ -34,8 +34,4 @@ public class Event {
     @Column(name = "operation", nullable = false)
     @Enumerated(EnumType.STRING)
     private Operation operation;
-
-    @ManyToOne
-    @JoinColumn(name = "entity_id")
-    private Film entity;
 }

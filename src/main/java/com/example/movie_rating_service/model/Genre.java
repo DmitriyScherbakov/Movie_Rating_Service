@@ -18,10 +18,13 @@ public class Genre {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "genre_id")
-    private int genreId;
+    private long genreId;
 
     @Column(name = "genre_name", unique = true, nullable = false, length = 45)
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany
+    @JoinTable(name = "films_genres",
+            joinColumns = @JoinColumn(name = "genre_id"),
+            inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> films;
 }

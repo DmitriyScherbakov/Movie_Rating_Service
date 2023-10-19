@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EqualsAndHashCode(exclude = "films")
+//@EqualsAndHashCode(exclude = "films")
 @Table(name = "users")
 public class User {
     @Id
@@ -34,4 +35,10 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Grade> grades;
+
+    @ManyToMany
+    @JoinTable (name="film_likes",
+            joinColumns=@JoinColumn (name="user_id"),
+            inverseJoinColumns=@JoinColumn(name="film_id"))
+    private List<Film> films;
 }

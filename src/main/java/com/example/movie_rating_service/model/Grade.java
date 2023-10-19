@@ -12,7 +12,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Entity
 @EqualsAndHashCode(exclude = "user")
-//@IdClass(GradeId.class)
 @Table(name = "grades")
 public class Grade {
     @Id

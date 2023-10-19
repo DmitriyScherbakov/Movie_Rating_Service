@@ -80,6 +80,12 @@
             <type>pom</type>
         </dependency>
 
+        <dependency>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>sql-maven-plugin</artifactId>
+            <version>1.5</version>
+        </dependency>
+
     </dependencies>
 
     <build>
@@ -95,6 +101,28 @@
                         </exclude>
                     </excludes>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>sql-maven-plugin</artifactId>
+                <version>1.5</version> <!-- Укажите актуальную версию плагина -->
+                <configuration>
+                    <driver>com.mysql.cj.jdbc.Driver</driver> <!-- Драйвер вашей базы данных -->
+                    <url>jdbc:mysql://localhost:3306/mrsdb</url> <!-- URL вашей базы данных -->
+                    <username>root</username> <!-- Ваше имя пользователя базы данных -->
+                    <password>PMQ98Zxd3L20</password> <!-- Ваш пароль базы данных -->
+                    <autocommit>true</autocommit>
+                    <srcFiles>
+                        <srcFile>D:\Movie_Rating_Service</srcFile> <!-- Путь к месту, где вы хотите сохранить SQL скрипт -->
+                    </srcFiles>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>

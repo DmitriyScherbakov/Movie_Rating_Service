@@ -13,13 +13,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EqualsAndHashCode(exclude = "likes, events")
+//@EqualsAndHashCode(exclude = "likes")
 @Table(name = "films")
 public class Film {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "film_id")
-    private int filmId;
+    private long filmId;
 
     @Column(name = "film_name", unique = true, nullable = false, length = 100)
     private String filmName;
@@ -37,7 +37,7 @@ public class Film {
     private LocalDateTime releaseDate;
 
     @Column(name = "duration", nullable = false)
-    private int duration;
+    private long duration;
 
     @Column(name = "average_rating", nullable = false)
     private double averageRating;
@@ -50,10 +50,10 @@ public class Film {
     @JoinTable(name = "film_likes",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> likes;
+    private List<User> users;
 
-    @OneToMany(mappedBy = "films")
-    private List<Event> events;
+    /*@OneToMany(mappedBy = "films")
+    private List<Event> events;*/
 
     @OneToMany(mappedBy = "films")
     private List<Grade> grades;
