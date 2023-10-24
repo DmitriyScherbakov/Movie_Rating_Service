@@ -5,8 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Data
@@ -14,7 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 //@EqualsAndHashCode(exclude = "films")
-@Table(name = "users")
+@Table(name = "users", schema = "mrsdb")
 public class User {
     @Id
     @Column(name = "user_id")
@@ -29,6 +28,9 @@ public class User {
 
     @Column(name = "password", nullable = false, length = 15)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Event> events;
 
     @OneToMany(mappedBy = "user")
     private List<Review> reviews;

@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.util.List;
 
 @Data
@@ -21,6 +21,7 @@ public class Genre {
     private long genreId;
 
     @Column(name = "genre_name", unique = true, nullable = false, length = 45)
+    private String genreName;
 
     @ManyToMany
     @JoinTable(name = "films_genres",

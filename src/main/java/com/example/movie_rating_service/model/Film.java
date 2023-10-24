@@ -5,7 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -52,13 +52,10 @@ public class Film {
             inverseJoinColumns = @JoinColumn(name = "user_id"))
     private List<User> users;
 
-    /*@OneToMany(mappedBy = "films")
-    private List<Event> events;*/
-
-    @OneToMany(mappedBy = "films")
+    @OneToMany(mappedBy = "film")
     private List<Grade> grades;
 
-    @OneToMany(mappedBy = "films")
+    @OneToMany(mappedBy = "film")
     private List<Review> reviews;
 
     @ManyToMany
@@ -66,4 +63,5 @@ public class Film {
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres;
+
 }
