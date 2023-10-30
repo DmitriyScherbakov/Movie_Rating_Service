@@ -1,5 +1,6 @@
 package com.example.movie_rating_service.model;
 
+import com.example.movie_rating_service.model.SerializableEntity.ReviewId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,9 +12,8 @@ import jakarta.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@EqualsAndHashCode(exclude = "user")
-//@IdClass(ReviewId.class)
 @Table(name = "reviews")
+@IdClass(ReviewId.class)
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

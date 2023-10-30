@@ -62,6 +62,5 @@ public class Film {
     @JoinTable(name = "films_genres",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
-    private List<Genre> genres;
-
+    private List<Genre> genres ;
 }

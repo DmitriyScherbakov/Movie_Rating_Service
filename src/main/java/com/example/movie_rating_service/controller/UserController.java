@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RestController
 @Slf4j
-@RequestMapping("/api")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -24,18 +24,18 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping("/getAll")
     public List<User> getAllUsers(){
         return userService.getAllUsers();
     }
 
-    @PostMapping("/user")
+    @PostMapping("/create")
     public User createUser(@RequestBody User userObj){
         userService.createUser(userObj);
         return userObj;
     }
 
-    @GetMapping("/user/{id}")
+    @GetMapping("/findById/{id}")
     public User getUserById(@PathVariable long id){
         User userObj = userService.getUserById(id);
         if (userObj  == null){
@@ -45,13 +45,13 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/user/{id}")
+    @DeleteMapping("/deleteById/{id}")
     public String deleteUserById(@PathVariable long id){
         userService.deleteUserById(id);
         return "User has been deleted with id:" + id;
     }
 
-    @PutMapping("/user/{id}")
+    @PutMapping("/update/{id}")
     public User updateUser(@PathVariable Long id, @RequestBody User userObj){
         // Поиск пользователя по id
         User existingUser = userService.getUserById(id);
@@ -66,6 +66,7 @@ public class UserController {
         existingUser.setLogin(userObj.getLogin());
         existingUser.setPassword(userObj.getPassword());
         existingUser.setEmail(userObj.getEmail());
+        existingUser.setRole(userObj.getRole());
         // Другие поля, которые нужно обновить
 
         // Сохраните обновленного пользователя в базе данных

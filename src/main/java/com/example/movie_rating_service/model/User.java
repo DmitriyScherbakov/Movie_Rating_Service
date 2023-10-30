@@ -1,8 +1,8 @@
 package com.example.movie_rating_service.model;
 
+import com.example.movie_rating_service.model.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
@@ -12,9 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-//@EqualsAndHashCode(exclude = "films")
 @Table(name = "users", schema = "mrsdb")
-public class User {
+public class User{
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,6 +27,10 @@ public class User {
 
     @Column(name = "password", nullable = false, length = 15)
     private String password;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Event> events;
