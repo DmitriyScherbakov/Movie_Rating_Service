@@ -65,7 +65,6 @@ public class UserController {
         // Обновите данные существующего пользователя с данными из userObj
         existingUser.setLogin(userObj.getLogin());
         existingUser.setPassword(userObj.getPassword());
-        existingUser.setEmail(userObj.getEmail());
         existingUser.setRole(userObj.getRole());
         // Другие поля, которые нужно обновить
 

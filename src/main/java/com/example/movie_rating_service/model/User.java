@@ -12,15 +12,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "users", schema = "mrsdb")
+@Table(name = "application_users", schema = "mrsdb")
 public class User{
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
-    @Column(name = "email", unique = true, nullable = false, length = 45)
-    private String email;
 
     @Column(name = "login", unique = true, nullable = false, length = 15)
     private String login;
