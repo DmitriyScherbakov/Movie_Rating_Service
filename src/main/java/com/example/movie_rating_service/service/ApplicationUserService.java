@@ -1,24 +1,20 @@
 package com.example.movie_rating_service.service;
 
-import com.example.movie_rating_service.config.UserDetailsImpl;
 import com.example.movie_rating_service.model.ApplicationUser;
 import com.example.movie_rating_service.repositories.ApplicationUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ApplicationUserServiceImpl implements  UserDetailsService {
+public class ApplicationUserService {
 
     private final ApplicationUserRepository applicationUserRepository;
 
     @Autowired
-    public ApplicationUserServiceImpl(ApplicationUserRepository applicationUserRepository) {
+    public ApplicationUserService(ApplicationUserRepository applicationUserRepository) {
         this.applicationUserRepository = applicationUserRepository;
     }
 
@@ -40,17 +36,8 @@ public class ApplicationUserServiceImpl implements  UserDetailsService {
         applicationUserRepository.save(updatedUser);
     }
 
-    @Override
     public void deleteUserById(long id) {
         applicationUserRepository.deleteById(id);
     }
 
-
-    @Override
-    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        ApplicationUser applicationUser = applicationUserRepository.findByLogin(login).
-                orElseThrow(()->new UsernameNotFoundException(String.format("User '$s' not found", login)));
-
-        return UserDetailsImpl.build(applicationUser);
-    }
 }

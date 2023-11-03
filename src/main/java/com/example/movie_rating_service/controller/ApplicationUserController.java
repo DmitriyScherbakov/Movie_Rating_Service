@@ -2,7 +2,7 @@ package com.example.movie_rating_service.controller;
 
 import com.example.movie_rating_service.exception.UserNotFoundException;
 import com.example.movie_rating_service.model.ApplicationUser;
-import com.example.movie_rating_service.service.serviceInterfaces.ApplicationUserService;
+import com.example.movie_rating_service.service.ApplicationUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

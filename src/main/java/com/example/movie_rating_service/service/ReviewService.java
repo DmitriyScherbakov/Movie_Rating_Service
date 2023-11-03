@@ -1,9 +1,7 @@
 package com.example.movie_rating_service.service;
 
-import com.example.movie_rating_service.model.Film;
 import com.example.movie_rating_service.model.Review;
 import com.example.movie_rating_service.repositories.ReviewRepository;
-import com.example.movie_rating_service.service.serviceInterfaces.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,12 +11,12 @@ import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
-public class ReviewServiceImpl {
+public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
     @Autowired
-    public ReviewServiceImpl(ReviewRepository reviewRepository) {
+    public ReviewService(ReviewRepository reviewRepository) {
         this.reviewRepository = reviewRepository;
     }
 
