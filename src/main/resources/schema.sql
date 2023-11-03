@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `mrsdb`.`FILM_LIKES` (
                                                             ON UPDATE NO ACTION,
                                                     CONSTRAINT `fk_films_likes_user_id`
                                                         FOREIGN KEY (`user_id`)
-                                                            REFERENCES `mrsdb`.`USERS` (`user_id`)
+                                                            REFERENCES `mrsdb`.application_users (`user_id`)
                                                             ON DELETE CASCADE
                                                             ON UPDATE NO ACTION)
     ENGINE = InnoDB;
@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `mrsdb`.`EVENTS` (
                                                 INDEX `fk_events_user_id_idx` (`user_id` ASC) VISIBLE,
                                                 CONSTRAINT `fk_events_user_id`
                                                     FOREIGN KEY (`user_id`)
-                                                        REFERENCES `mrsdb`.`USERS` (`user_id`)
+                                                        REFERENCES `mrsdb`.application_users (`user_id`)
                                                         ON DELETE CASCADE
                                                         ON UPDATE NO ACTION)
     ENGINE = InnoDB;
@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `mrsdb`.`GRADES` (
                                                 INDEX `fr_grades_film_id_idx` (`film_id` ASC) VISIBLE,
                                                 CONSTRAINT `fk_grades_user_id`
                                                     FOREIGN KEY (`user_id`)
-                                                        REFERENCES `mrsdb`.`USERS` (`user_id`)
+                                                        REFERENCES `mrsdb`.application_users (`user_id`)
                                                         ON DELETE CASCADE
                                                         ON UPDATE NO ACTION,
                                                 CONSTRAINT `fr_grades_film_id`
@@ -150,7 +150,7 @@ CREATE TABLE IF NOT EXISTS `mrsdb`.`REVIEWS` (
                                                          ON UPDATE NO ACTION,
                                                  CONSTRAINT `fk_reviews_user_id`
                                                      FOREIGN KEY (`user_id`)
-                                                         REFERENCES `mrsdb`.`USERS` (`user_id`)
+                                                         REFERENCES `mrsdb`.application_users (`user_id`)
                                                          ON DELETE CASCADE
                                                          ON UPDATE NO ACTION)
     ENGINE = InnoDB;

@@ -2,7 +2,6 @@ package com.example.movie_rating_service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
@@ -50,7 +49,7 @@ public class Film {
     @JoinTable(name = "film_likes",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> users;
+    private List<ApplicationUser> users;
 
     @OneToMany(mappedBy = "film")
     private List<Grade> grades;
