@@ -25,7 +25,7 @@ public class Event {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private ApplicationUser user;
 
     @Column(name = "event_type", nullable = false)
     @Enumerated(EnumType.STRING)

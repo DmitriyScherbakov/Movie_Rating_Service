@@ -1,11 +1,10 @@
 package com.example.movie_rating_service.controller;
 
 import com.example.movie_rating_service.exception.UserNotFoundException;
-import com.example.movie_rating_service.model.User;
-import com.example.movie_rating_service.service.serviceInterfaces.UserService;
+import com.example.movie_rating_service.model.ApplicationUser;
+import com.example.movie_rating_service.service.serviceInterfaces.ApplicationUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,29 +14,29 @@ import java.util.List;
 @RestController
 @Slf4j
 @RequestMapping("/user")
-public class UserController {
+public class ApplicationUserController {
 
-    private final UserService userService;
+    private final ApplicationUserService applicationUserService;
 
     @Autowired
-    public UserController(UserService userService) {
-        this.userService = userService;
+    public ApplicationUserController(ApplicationUserService applicationUserService) {
+        this.applicationUserService = applicationUserService;
     }
 
     @GetMapping("/getAll")
-    public List<User> getAllUsers(){
-        return userService.getAllUsers();
+    public List<ApplicationUser> getAllUsers(){
+        return applicationUserService.getAllUsers();
     }
 
     @PostMapping("/create")
-    public User createUser(@RequestBody User userObj){
-        userService.createUser(userObj);
+    public ApplicationUser createUser(@RequestBody ApplicationUser userObj){
+        applicationUserService.createUser(userObj);
         return userObj;
     }
 
     @GetMapping("/findById/{id}")
-    public User getUserById(@PathVariable long id){
-        User userObj = userService.getUserById(id);
+    public ApplicationUser getUserById(@PathVariable long id){
+        ApplicationUser userObj = applicationUserService.getUserById(id);
         if (userObj  == null){
             throw new UserNotFoundException("User with id: " + id + " is not found" );
         }else {
@@ -47,14 +46,14 @@ public class UserController {
 
     @DeleteMapping("/deleteById/{id}")
     public String deleteUserById(@PathVariable long id){
-        userService.deleteUserById(id);
+        applicationUserService.deleteUserById(id);
         return "User has been deleted with id:" + id;
     }
 
     @PutMapping("/update/{id}")
-    public User updateUser(@PathVariable Long id, @RequestBody User userObj){
+    public ApplicationUser updateUser(@PathVariable Long id, @RequestBody ApplicationUser userObj){
         // Поиск пользователя по id
-        User existingUser = userService.getUserById(id);
+        ApplicationUser existingUser = applicationUserService.getUserById(id);
 
         if (existingUser == null) {
             // Если пользователь с указанным id не найден, верните какую-то ошибку или бросьте исключение
@@ -65,12 +64,11 @@ public class UserController {
         // Обновите данные существующего пользователя с данными из userObj
         existingUser.setLogin(userObj.getLogin());
         existingUser.setPassword(userObj.getPassword());
-        existingUser.setEmail(userObj.getEmail());
         existingUser.setRole(userObj.getRole());
         // Другие поля, которые нужно обновить
 
         // Сохраните обновленного пользователя в базе данных
-        userService.updateUser(id, existingUser);
+        applicationUserService.updateUser(id, existingUser);
 
         // Верните обновленного пользователя
         return existingUser;

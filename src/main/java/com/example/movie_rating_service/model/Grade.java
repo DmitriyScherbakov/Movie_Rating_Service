@@ -2,7 +2,6 @@ package com.example.movie_rating_service.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
@@ -20,7 +19,7 @@ public class Grade {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private ApplicationUser user;
 
     @ManyToOne
     @JoinColumn(name = "film_id")

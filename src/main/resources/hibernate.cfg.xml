@@ -25,7 +25,7 @@
         <mapping class="com.example.movie_rating_service.model.Grade"/>
         <mapping class="com.example.movie_rating_service.model.Rating"/>
         <mapping class="com.example.movie_rating_service.model.Review"/>
-        <mapping class="com.example.movie_rating_service.model.User"/>
+        <mapping class="com.example.movie_rating_service.model.ApplicationUser"/>
 
     </session-factory>
 </hibernate-configuration>

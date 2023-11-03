@@ -9,7 +9,6 @@ import org.springframework.context.annotation.ComponentScan;
 public class MovieRatingServiceApplication {
 
     public static void main(String[] args) {
-        System.out.println("Hello World!!!!!!!!!!!!");
 
         SpringApplication.run(MovieRatingServiceApplication.class, args);
 

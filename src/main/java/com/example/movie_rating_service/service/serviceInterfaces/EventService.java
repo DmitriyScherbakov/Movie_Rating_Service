@@ -1,7 +1,6 @@
 package com.example.movie_rating_service.service.serviceInterfaces;
 
 import com.example.movie_rating_service.model.Event;
-import com.example.movie_rating_service.model.User;
 
 import java.util.List;
 

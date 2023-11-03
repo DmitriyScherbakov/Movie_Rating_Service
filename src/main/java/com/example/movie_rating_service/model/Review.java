@@ -3,7 +3,6 @@ package com.example.movie_rating_service.model;
 import com.example.movie_rating_service.model.SerializableEntity.ReviewId;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
@@ -28,7 +27,7 @@ public class Review {
     @Id
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private ApplicationUser user;
 
     @Column(name = "review", nullable = false, length = 500)
     private String review;
