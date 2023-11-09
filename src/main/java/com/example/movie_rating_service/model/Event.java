@@ -1,6 +1,6 @@
 package com.example.movie_rating_service.model;
 
-import com.example.movie_rating_service.model.enums.Operation;
+import  com.example.movie_rating_service.model.enums.Operation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,6 +31,7 @@ public class Event {
     @Enumerated(EnumType.STRING)
     private EventType eventType;
 
+    //@ElementCollection(targetClass = Operation.class, fetch = FetchType.EAGER)
     @Column(name = "operation", nullable = false)
     @Enumerated(EnumType.STRING)
     private Operation operation;

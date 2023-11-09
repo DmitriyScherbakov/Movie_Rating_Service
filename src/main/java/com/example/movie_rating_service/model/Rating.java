@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -22,5 +23,5 @@ public class Rating {
     private String ratingName;
 
     @OneToMany(mappedBy = "rating")
-    private List<Film> films;
+    private Set<Film> films;
 }

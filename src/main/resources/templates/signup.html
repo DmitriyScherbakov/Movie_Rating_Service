@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Spring Security Registration Example</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+<body>
+<div id="error" style="color: red;"></div>
+<form id="registrationForm" action="/signup" method="post">
+    <div><label>Username: <input type="text" id="login" name="login" /></label></div>
+
+    <div><label>Password: <input type="password" id="password" name="password" /></label></div>
+
+    <div><label>Confirm Password: <input type="password" id="confirmPassword" name="confirmPassword" /></label></div>
+
+    <div><input type="submit" value="Sign Up" onclick="validateForm(event)" /></div>
+
+    <div> <a href="/signшт">Вернуться на страницу авторизации</a></div>
+</form>
+
+<script>
+    function validateForm(event) {
+        event.preventDefault();
+
+        var username = document.getElementById("login").value;
+        var password = document.getElementById("password").value;
+        var confirmPassword = document.getElementById("confirmPassword").value;
+
+        var errorDiv = document.getElementById("error");
+        errorDiv.innerHTML = ""; // Clear previous error messages
+
+        if (username.length < 3 || username.length > 15) {
+            errorDiv.innerHTML += "Username must be between 3 and 15 characters.<br>";
+        }
+
+        if (password.length < 3 || password.length > 15) {
+            errorDiv.innerHTML += "Password must be between 3 and 15 characters.<br>";
+        }
+
+        if (password !== confirmPassword) {
+            errorDiv.innerHTML += "Passwords do not match.<br>";
+        }
+
+        if (errorDiv.innerHTML === "") {
+            // If no errors, submit the form
+            document.getElementById("registrationForm").submit();
+        }
+    }
+</script>
+
+</body>
+</html>

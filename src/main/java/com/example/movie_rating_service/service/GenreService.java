@@ -24,7 +24,7 @@ public class GenreService {
         return genreRepository.findAll();
     }
 
-    public Genre getGenreById(long id) {
+    public Genre getGenreById(Long id) {
         Optional<Genre> foundGenre = genreRepository.findById(id);
         return foundGenre.orElse(null);
     }

@@ -2,21 +2,23 @@ package com.example.movie_rating_service.service;
 
 import com.example.movie_rating_service.model.ApplicationUser;
 import com.example.movie_rating_service.repositories.ApplicationUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Slf4j
+@RequiredArgsConstructor
 public class ApplicationUserService {
 
     private final ApplicationUserRepository applicationUserRepository;
-
-    @Autowired
-    public ApplicationUserService(ApplicationUserRepository applicationUserRepository) {
-        this.applicationUserRepository = applicationUserRepository;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     public List<ApplicationUser> getAllUsers() {
         return applicationUserRepository.findAll();
@@ -28,16 +30,12 @@ public class ApplicationUserService {
     }
 
     public void createUser(ApplicationUser user) {
+        Optional<ApplicationUser> existingUser = applicationUserRepository.findApplicationUserByLogin(user.getLogin());
+        if (existingUser.isPresent()) {
+            throw new IllegalArgumentException("Логин уже занят, пожалуйста, выберите другой.");
+        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         applicationUserRepository.save(user);
-    }
-
-    public void updateUser(Long id, ApplicationUser updatedUser) {
-        updatedUser.setId(id);
-        applicationUserRepository.save(updatedUser);
-    }
-
-    public void deleteUserById(long id) {
-        applicationUserRepository.deleteById(id);
     }
 
 }

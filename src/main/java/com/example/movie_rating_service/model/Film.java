@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -52,10 +53,10 @@ public class Film {
     private List<ApplicationUser> users;
 
     @OneToMany(mappedBy = "film")
-    private List<Grade> grades;
+    private Set<Grade> grades;
 
     @OneToMany(mappedBy = "film")
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
     @ManyToMany
     @JoinTable(name = "films_genres",

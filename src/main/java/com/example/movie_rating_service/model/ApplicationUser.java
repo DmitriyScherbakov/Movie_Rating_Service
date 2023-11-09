@@ -1,49 +1,46 @@
 package com.example.movie_rating_service.model;
 
-import com.example.movie_rating_service.model.enums.Role;
+import com.example.movie_rating_service.model.enums.ERole;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import jakarta.persistence.*;
-import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "application_users", schema = "mrsdb")
+@Table(name = "application_users")
 public class ApplicationUser {
     @Id
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Size(min = 3, max = 15, message = "Login должен быть размером от 3 до 15 символов")
-    @Column(name = "login", unique = true, nullable = false, length = 15)
+    @Column(name = "login", nullable = false, length = 15)
     private String login;
 
-    @Size(min = 3, max = 15, message = "Password должен быть размером от 3 до 15 символов")
-    @Column(name = "password", nullable = false, length = 15)
+    @Column(name = "password", nullable = false, length = 100)
     private String password;
 
-    @Column(name = "role", nullable = false)
-    @Enumerated(EnumType.STRING)
-    private Role role;
+    @Column(name = "role")
+    private ERole role = ERole.USER;
 
     @OneToMany(mappedBy = "user")
-    private List<Event> events;
+    private Set<Event> events;
 
     @OneToMany(mappedBy = "user")
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
     @OneToMany(mappedBy = "user")
-    private List<Grade> grades;
+    private Set<Grade> grades;
 
     @ManyToMany
     @JoinTable (name="film_likes",
             joinColumns=@JoinColumn (name="user_id"),
             inverseJoinColumns=@JoinColumn(name="film_id"))
-    private List<Film> films;
+    private Set<Film> films;
 }

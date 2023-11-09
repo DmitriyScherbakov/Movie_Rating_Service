@@ -4,11 +4,6 @@ import lombok.Getter;
 
 @Getter
 public enum EventType {
-    LIKE("LIKE"), REVIEW("REVIEW"), GRADE("GRADE");
-    private final String title;
-
-    EventType(String title) {
-        this.title = title;
-    }
+    LIKE, REVIEW, GRADE;
 
 }

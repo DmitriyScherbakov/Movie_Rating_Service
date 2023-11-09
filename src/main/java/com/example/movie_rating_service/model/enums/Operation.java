@@ -4,11 +4,5 @@ import lombok.Getter;
 
 @Getter
 public enum Operation {
-    REMOVE("REMOVE"), ADD("ADD"), UPDATE("UPDATE");
-    private final String title;
-
-    Operation(String title) {
-        this.title = title;
-    }
-
+    REMOVE, ADD, UPDATE;
 }
