@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Spring Security Registration Example</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <style>
+        /* Стили для блока ошибок */
+        #error {
+            background-color: #f44336;
+            color: white;
+            padding: 10px;
+            margin-bottom: 15px;
+            display: none; /* Скрыть изначально */
+        }
+    </style>
 </head>
 <body>
-<div id="error" style="color: red;"></div>
-<form id="registrationForm" action="/signup" method="post">
-    <div><label>Username: <input type="text" id="login" name="login" /></label></div>
+<div id="error" style="color: red;"></div> <!-- Блок для вывода ошибок -->
 
-    <div><label>Password: <input type="password" id="password" name="password" /></label></div>
-
-    <div><label>Confirm Password: <input type="password" id="confirmPassword" name="confirmPassword" /></label></div>
-
+<form id="registrationForm" th:action="@{/signup}" method="post">
+    <div><label>Username: <input type="text" id="login" name="login"  /></label></div>
+    <div><label>Password: <input type="password" id="password" name="password"  /></label></div>
+    <div><label>Confirm Password: <input type="password" id="confirmPassword" name="confirmPassword"  /></label></div>
     <div><input type="submit" value="Sign Up" onclick="validateForm(event)" /></div>
-
-    <div> <a href="/signшт">Вернуться на страницу авторизации</a></div>
+    <div> <a th:href="@{/signin}">Вернуться на страницу авторизации</a></div>
 </form>
 
 <script>
@@ -28,7 +35,7 @@
         var confirmPassword = document.getElementById("confirmPassword").value;
 
         var errorDiv = document.getElementById("error");
-        errorDiv.innerHTML = ""; // Clear previous error messages
+        errorDiv.innerHTML = ""; // Очистка предыдущих сообщений об ошибках
 
         if (username.length < 3 || username.length > 15) {
             errorDiv.innerHTML += "Username must be between 3 and 15 characters.<br>";
@@ -42,12 +49,13 @@
             errorDiv.innerHTML += "Passwords do not match.<br>";
         }
 
-        if (errorDiv.innerHTML === "") {
-            // If no errors, submit the form
-            document.getElementById("registrationForm").submit();
+        if (errorDiv.innerHTML !== "") {
+            errorDiv.style.display = "block"; // Показать блок ошибок, если они есть
+        } else {
+            errorDiv.style.display = "none"; // Скрыть блок ошибок, если ошибок нет
+            document.getElementById("registrationForm").submit(); // Если ошибок нет, отправить форму
         }
     }
 </script>
-
 </body>
 </html>

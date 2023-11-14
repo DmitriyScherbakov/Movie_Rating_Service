@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" href="../static/css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f3f3f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 300px;
+            width: 100%;
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="password"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        form input[type="submit"] {
+            background-color: #f90;
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 4px;
+            width: 100%;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover {
+            background-color: #ffaa33;
+        }
+
+        form a {
+            color: #f90;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+<form id="registrationForm" action="/signup" method="post">
+    <label>Username: <input type="text" name="username"/></label>
+    <label>Password: <input type="password" name="password"/></label>
+    <label>Confirm Password: <input type="password" name="confirmPassword"/></label>
+    <input type="submit" value="Sign Up"/>
+    <a href="/signin">Back to Sign In page</a>
+</form>
+</body>
+</html>

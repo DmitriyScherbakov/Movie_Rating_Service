@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en">
     <head>
         <meta charset="UTF-8">
         <title>Login</title>
-        <link rel="stylesheet" type="text/css" href="styles.css">
+        <link href="../static/css/styles.css" rel="stylesheet" >
     </head>
     <body>
-        <div th:if="${param.error}">
+        <div th:if="${param.error}" style="color: red;">
             Invalid username and password.
         </div>
         <div th:if="${param.logout}">
@@ -16,8 +16,9 @@
             <div><label> Username : <input type="text" name="username"/> </label></div>
             <div><label> Password: <input type="password" name="password"/> </label></div>
             <div><input type="submit" value="Sign In"/></div>
+            <div>Нет аккаунта? <a href="/signup">Зарегистрируйтесь</a></div>
         </form>
-        <div>Нет аккаунта? <a href="/signup">Зарегистрируйтесь</a></div>
+
     </body>
 </html>
 
