@@ -1,16 +1,132 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <meta charset="UTF-8">
-        <title>Spring Security Example</title>
-    </head>
-    <body>
-        <h1>Hello!!!1!</h1>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Films</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
 
-        <div sec:authorize="isAuthenticated()">
-            <form th:action="@{/logout}" method="post">
-                <input type="submit" value="Logout"/>
-            </form>
+<div class="header">
+    <link href="../static/css/header.css" rel="stylesheet">
+    <div class="logo">
+        <img src="../static/icons/site_name_and_logo.svg" alt="Site Icon">
+    </div>
+
+    <div class="navigation">
+        <h1 class="films">
+            Film Gallery
+        </h1>
+        <h2 class="rating">
+            Rating
+        </h2>
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search...">
+            <div class="search-icon">
+                <img src="../static/icons/lupa_icon.svg" alt="Search Icon">
+            </div>
         </div>
-    </body>
+    </div>
+
+    <div class="profile-icon">
+        <img src="../static/icons/profile_icon.svg" alt="Profile Icon" width="40px" height="40px">
+    </div>
+</div>
+
+<table class="main_table">
+    <link href="../static/css/films_gallery.css" rel="stylesheet">
+    <tr>
+        <td class="sorting_column"> <!--Первый столбец-->
+            <div class="sorting_table"> <!-- Таблица сортирвки -->
+                <div class="titles_sorting_table">
+                    Genres
+                </div>
+                <div class="select_genre">
+                    <select id="genreDropdown" onchange="sortFilmsByGenre()">
+                        <option value="all">All Genres</option>
+                        <option value="action">Drama</option>
+                        <option value="drama">Adventure</option>
+                        <option value="drama">Crime</option>
+                        <option value="drama">War</option>
+                        <option value="drama">Comedy</option>
+                        <option value="drama">Fantasy</option>
+                        <option value="drama">Thriller</option>
+                        <option value="drama">Action</option>
+                        <option value="drama">Romance</option>
+                        <!-- Добавьте другие жанры по мере необходимости -->
+                    </select>
+                </div>
+                <div class="titles_sorting_table">
+                    Release Year
+                </div>
+                <div class="input_search_by_year">
+                    <input type="text" id="startYear" placeholder="...">
+                    to
+                    <input type="text" id="endYear" placeholder="...">
+                </div>
+                <div class="titles_sorting_table">
+                    MRS Rating
+                </div>
+                <div class="input_search_by_rating">
+                    <input type="text" id="startRating" placeholder="...">
+                    to
+                    <input type="text" id="endRating" placeholder="...">
+                </div>
+                <button class="search_button">
+                    Search
+                </button>
+            </div>
+        </td>
+        <td class="films_column"> <!--Второй столбец-->
+            <div class="films_column_title">
+                <div class="numbers_of_movies">
+                    100 movies
+                    <!--Количество фильмов-->
+                </div>
+                <div class="title">
+                    MOVIES
+                </div>
+                <div class="sort_by">
+                    Sort By >
+                </div>
+            </div>
+            <div class="film-list">
+                <div th:each="film: ${film}" class="film-card">
+                    <div class="film-info">
+                        <!-- Номер фильма в списке -->
+                        <div class="film-number" th:text="${film.getFilmId}"></div>
+
+                    </div>
+
+                    <div class="film-info">
+                        <!-- Постер фильма через URL на внешний ресурс -->
+                        <img class="film-poster" th:src="${film.getFilmImageUrl}" alt="Film Poster">
+                    </div>
+
+                    <div class="film-details">
+                        <!-- Название фильма -->
+                        <div class="film-title" th:text="${film.getFilmName}"></div>
+
+                        <!-- Год выпуска, Продолжительность фильма -->
+                        <div class="film-year-and-duration">
+                            <div class="film-year" th:text="${film.getReleaseDate}"></div>
+                            <div class="film-duration" th:text="${film.getDuration}"></div>
+                        </div>
+
+                        <!-- Жанр -->
+                        <!--<div class="film-genre" th:text="${film.getGenre}"></div>-->
+
+                        <!-- Рейтинг -->
+                        <div class="film-rating" th:text="${film.getAverageRating}"></div>
+
+                        <!-- Ссылка на трейлер фильма -->
+                        <a class="film-trailer" th:href="${film.getTrailerUrl}" target="_blank">Watch Trailer</a>
+                    </div>
+                </div>
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
 </html>

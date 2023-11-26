@@ -1,0 +1,185 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Jost-Regular", serif;
+    background-color: #EEEEEE;
+    text-align: left;
+}
+
+/*Таблица под шапкой*/
+.main_table {
+    width: 99%;
+    border-collapse: collapse;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    vertical-align: top;
+}
+
+/*Первый столбец*/
+.sorting_column {
+    width: 25%;
+    vertical-align: top; /* Выравнивание по верхней границе */
+}
+
+/*Столбец слева с сортировкой*/
+.sorting_table {
+    position: sticky;
+    top: 10px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    border: 1px solid #222831;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #EEEEEE;
+    z-index: 1; /* Обеспечивает, что sorting_table будет отображаться поверх других элементов */
+}
+
+.titles_sorting_table {
+    font-family: "Jost-Bold", serif;
+    font-size: 20px;
+    color: #222831;
+}
+
+.select_genre {
+    width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input_search_by_year {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.input_search_by_rating {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.search_button {
+    width: 75px;
+    height: 25px;
+    border-width: 0.5px;
+    border-radius: 10px;
+    border-color: #00BCC5;
+}
+
+/*Столбец со свеми карточками*/
+.films_column {
+    vertical-align: text-top;
+    padding: 10px;
+}
+
+/*Заголовок с надписями над карточками фильмов*/
+.films_column_title {
+    align-items: flex-end;
+    display: flex;
+    height: 35px;
+    justify-content: space-between;
+}
+
+/*Количество фильмов*/
+.numbers_of_movies {
+    font-family: "Jost-Bold", serif;
+    font-size: 20px;
+    /*align-self: flex-start;*/
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #222831;
+}
+
+/*Надпись MOVIES*/
+.title {
+    font-family: "Jost-Bold", serif;
+    font-size: 24px;
+    align-self: center;
+    color: #222831;
+}
+
+/*Надпись "Sort By"*/
+.sort_by {
+    font-family: "Jost-Bold", serif;
+    font-size: 20px;
+    text-decoration: underline;
+    align-self: flex-end;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    color: #222831;
+}
+
+/*Отдельная карточка фильма*/
+.film-card {
+    max-width: 99%;
+    height: 200px;
+    display: flex; /* Используем flexbox для размещения элементов в строку */
+    align-items: center; /* Выравниваем элементы по вертикали по центру */
+    justify-content: start;
+    border: 1px solid #222831; /* Просто для наглядности, можно убрать */
+    padding: 10px; /* Добавляем отступы между элементами */
+    margin-bottom: 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/* Номер фильма и постер */
+.film-info {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.film-poster {
+    height: 180px;
+    width: 180px; /* Устанавливаем максимальную высоту по высоте родительского контейнера */
+    border-radius: 10px; /* Регулируйте радиус закругления краев по вашему вкусу */
+    overflow: hidden; /* Обрезаем изображение, чтобы оно соответствовало границам с закругленными углами */
+    object-fit: cover; /* Заполняем изображение внутри контейнера, сохраняя пропорции */
+}
+
+/* Если необходимо убрать перенос текста внутри элементов, добавьте следующий стиль: */
+.film-card div {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Остальные стили для дочерних элементов film-card */
+.film-number,
+.film-title {
+    font-family: Jost-Bold, serif;
+    font-size: 24px;
+}
+
+.film-year,
+.film-duration,
+.film-rating,
+.film-trailer {
+    margin-bottom: 10px; /* Добавляем немного отступа между элементами */
+}
+
+.film-year-and-duration {
+    display: flex;
+    flex-direction: column;
+}
+
+@font-face {
+    font-family: "Jost-Regular";
+    src: url("../fonts/Jost-Regular.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Jost-Bold";
+    src: url("../fonts/Jost-Bold.ttf");
+    font-style: normal;
+    font-weight: bold;
+}
+
+

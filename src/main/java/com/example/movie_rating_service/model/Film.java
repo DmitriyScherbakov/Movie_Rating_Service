@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import jakarta.persistence.*;
+
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
@@ -27,14 +29,17 @@ public class Film {
     @Column(name = "film_image_url", nullable = false, length = 200)
     private String filmImageUrl;
 
-    @Column(name = "description", nullable = false, length = 500)
+    @Column(name = "trailer_url", nullable = false, length = 100)
+    private String trailerUrl;
+
+    @Column(name = "description", nullable = false, length = 2000)
     private String description;
 
     @Column(name = "director", nullable = false, length = 45)
     private String director;
 
     @Column(name = "release_date", nullable = false)
-    private LocalDateTime releaseDate;
+    private Date releaseDate;
 
     @Column(name = "duration", nullable = false)
     private long duration;
