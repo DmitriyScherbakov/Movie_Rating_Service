@@ -35,7 +35,7 @@ public class HomePage {
     }
 
 
-    @PostMapping("/homepage")
+    /*@PostMapping("/homepage")
     public String homePage(Model model,@RequestParam(name = "genre", required = false) Long genre,
                              @RequestParam(name = "startYear", required = false) Integer startYear,
                              @RequestParam(name = "endYear", required = false) Integer endYear,
@@ -47,5 +47,22 @@ public class HomePage {
         model.addAttribute("film", films);
         model.addAttribute("genre", genres);
         return "homepage";
+    }*/
+    @PostMapping("/homepage")
+    public String homePage(Model model,
+                           @RequestParam(name = "genre", required = false) Genre genre,
+                           @RequestParam(name = "startYear", required = false) Integer startYear,
+                           @RequestParam(name = "endYear", required = false) Integer endYear,
+                           @RequestParam(name = "startRating", required = false) Double startRating,
+                           @RequestParam(name = "endRating", required = false) Double endRating) {
+
+        List<Film> films = filmService.findFilmsByGenresAndReleaseDateAndRating(
+                genre, startYear, endYear, startRating, endRating);
+
+        List<Genre> genres = genreService.getAllGenres();
+        model.addAttribute("film", films);
+        model.addAttribute("genre", genres);
+        return "homepage";
     }
+
 }

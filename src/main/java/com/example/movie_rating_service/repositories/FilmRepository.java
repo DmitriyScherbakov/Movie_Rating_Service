@@ -12,5 +12,10 @@ import java.util.List;
 import java.util.Optional;
 
 public interface FilmRepository extends JpaRepository<Film, Long> {
-    ArrayList<Film>findFilmsByGenresContains(Genre genre);
+    //ArrayList<Film>findFilmsByGenresContains(Genre genre);
+    ArrayList<Film> findFilmsByGenresContainsAndReleaseDateBetweenAndAverageRatingBetween(
+            Genre genre, Date startReleaseDate, Date endReleaseDate, double startRating, double endRating);
+
+    ArrayList<Film> findFilmsByReleaseDateBetweenAndAverageRatingBetween(
+            Date startReleaseDate, Date endReleaseDate, double startRating, double endRating);
 }

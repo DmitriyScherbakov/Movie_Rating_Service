@@ -45,7 +45,7 @@
                     </div>
                     <div class="select_genre">
                         <select name="genre">
-                            <option value="all">All Genres</option>
+                            <option value="">All genres</option>
                             <option th:each="genre: ${genre}" th:value="${genre.genreId}"
                                     th:text="${genre.genreName}"></option>
                         </select>
@@ -62,9 +62,9 @@
                         MRS Rating
                     </div>
                     <div class="input_search_by_rating">
-                        <input type="number" name="startRating" placeholder="...">
+                        <input type="number" step="any" name="startRating" placeholder="...">
                         to
-                        <input type="number" name="endRating" placeholder="...">
+                        <input type="text" step="any" name="endRating" placeholder="...">
                     </div>
                     <button type="submit" class="search_button">
                         Search
