@@ -1,11 +1,13 @@
 package com.example.movie_rating_service.service;
 
 import com.example.movie_rating_service.model.Film;
+import com.example.movie_rating_service.model.Genre;
 import com.example.movie_rating_service.repositories.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +47,9 @@ public class FilmService {
     @Transactional
     public void deleteFilmById(long id) {
         filmRepository.deleteById(id);
+    }
+
+    public ArrayList<Film> findFilmsByGenresContains(Genre genre){
+        return filmRepository.findFilmsByGenresContains(genre);
     }
 }

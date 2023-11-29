@@ -23,9 +23,9 @@ public class Genre {
     @Column(name = "genre_name", unique = true, nullable = false, length = 45)
     private String genreName;
 
-    @ManyToMany
-    @JoinTable(name = "films_genres",
+    @ManyToMany(mappedBy = "genres")
+    /*@JoinTable(name = "films_genres",
             joinColumns = @JoinColumn(name = "genre_id"),
-            inverseJoinColumns = @JoinColumn(name = "film_id"))
+            inverseJoinColumns = @JoinColumn(name = "film_id"))*/
     private List<Film> films;
 }

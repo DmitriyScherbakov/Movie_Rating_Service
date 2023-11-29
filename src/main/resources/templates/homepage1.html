@@ -38,38 +38,35 @@
     <link href="../static/css/films_gallery.css" rel="stylesheet">
     <tr>
         <td class="sorting_column"> <!--Первый столбец-->
-            <form th:action="@{/homepage}" th:method="post">
-                <div class="sorting_table"> <!-- Таблица сортирвки -->
-                    <div class="titles_sorting_table">
-                        Genres
-                    </div>
-                    <div class="select_genre">
-                        <select name="genre">
-                            <option value="all">All Genres</option>
-                            <option th:each="genre: ${genre}" th:value="${genre.genreId}"
-                                    th:text="${genre.genreName}"></option>
-                        </select>
-                    </div>
-                    <div class="titles_sorting_table">
-                        Release Year
-                    </div>
-                    <div class="input_search_by_year">
-                        <input type="number" name="startYear" placeholder="...">
-                        to
-                        <input type="number" name="endYear" placeholder="...">
-                    </div>
-                    <div class="titles_sorting_table">
-                        MRS Rating
-                    </div>
-                    <div class="input_search_by_rating">
-                        <input type="number" name="startRating" placeholder="...">
-                        to
-                        <input type="number" name="endRating" placeholder="...">
-                    </div>
-                    <button type="submit" class="search_button">
-                        Search
-                    </button>
+            <form th:action="@{/homepage1}" th:method="post">
+                <div class="titles_sorting_table">
+                    Genres
                 </div>
+                <div class="select_genre">
+                    <select name="genre">
+                        <option value="all">All Genres</option>
+                        <option th:each="genre: ${genre}" th:value="${genre.genreId}" th:text="${genre.genreName}"></option>
+                    </select>
+                </div>
+                <div class="titles_sorting_table">
+                    Release Year
+                </div>
+                <div class="input_search_by_year">
+                    <input type="text" name="startYear" placeholder="...">
+                    to
+                    <input type="text" name="endYear" placeholder="...">
+                </div>
+                <div class="titles_sorting_table">
+                    MRS Rating
+                </div>
+                <div class="input_search_by_rating">
+                    <input type="text" name="startRating" placeholder="...">
+                    to
+                    <input type="text" name="endRating" placeholder="...">
+                </div>
+                <button type="submit" class="search_button">
+                    Search
+                </button>
             </form>
         </td>
         <td class="films_column"> <!--Второй столбец-->
@@ -109,7 +106,7 @@
                         </div>
 
                         <!-- Жанр -->
-                        <div th:each="genre: ${film.getGenres()}">
+                        <div th:each="genre: ${film.getGenres()}" >
                             <div th:text="${genre.getGenreName()}"></div>
                         </div>
 
