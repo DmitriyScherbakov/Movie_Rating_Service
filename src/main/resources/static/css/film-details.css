@@ -1,0 +1,155 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Jost-Regular", serif;
+    background-color: #EEEEEE;
+    text-align: left;
+}
+
+.rectangle{
+    display: flex;
+    justify-content: center;
+}
+
+.main_table{
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.film_row {
+    width: auto;
+    height: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+.poster_column{
+    height: 100%;
+    background-color: #A3FFF4;
+    flex-direction: column;
+    justify-content: center;  /*Центрирует по горизонтали*/
+    text-align: center;
+    padding-right: 50px;
+    padding-left: 50px;
+}
+
+.film-poster {
+    height: 400px;
+    width: 250px; /* Устанавливаем максимальную высоту по высоте родительского контейнера */
+    border-radius: 10px; /* Регулируйте радиус закругления краев по вашему вкусу */
+    overflow: hidden; /* Обрезаем изображение, чтобы оно соответствовало границам с закругленными углами */
+    object-fit: cover; /* Заполняем изображение внутри контейнера, сохраняя пропорции */
+    margin-top: 60px;
+}
+
+.trailer_button{
+    margin-top: 30px;
+    width: 250px;
+    height: 60px;
+    font-family: Jost-Bold, serif;
+    font-size: 28px;
+    background-color: #B5C6B8;
+    border-radius: 10px;
+    border-color: transparent;
+    color: #222831;
+}
+
+.info_desc_column{
+    padding-left: 50px;
+    padding-right: 50px;
+    height: 100%;
+    min-width: 400px ;
+    max-width: 600px;
+    background-color: #8CFF98;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    text-align: start;
+}
+
+.film_name{
+    margin-top: 50px;
+    font-family: Jost-Bold, serif;
+    font-size: 36px;
+    color: #222831;
+    text-decoration: underline;
+    margin-bottom: 30px;
+}
+
+.about_film_titles{
+    font-family: Jost-Bold, serif;
+    font-size: 20px;
+    color: #222831;
+    margin-bottom: 20px;
+}
+
+.description_row{
+
+}
+
+.text{
+    font-family: Jost-Regular, serif;
+    font-size: 16px;
+    display: inline-flex;
+    color: #222831;
+    margin-bottom: 15px;
+}
+
+.rating_column{
+    padding-left: 50px;
+    padding-right: 50px;
+    height: 100%;
+    background-color: #E5ADFF;
+    justify-content: center;  /*Центрирует по горизонтали*/
+    text-align: center;
+}
+
+.average_title{
+    margin-top: 50px;
+    font-family: Jost-Bold, serif;
+    font-size: 28px;
+    color: #222831;
+}
+
+.rating_number{
+    color: #222831;
+    font-family: Jost-Bold, serif;
+    font-size: 36px;
+    text-decoration: underline;
+    margin-bottom: 15px;
+}
+
+.gold_rating {
+    color: gold;
+    font-family: Jost-Bold, serif;
+    font-size: 36px;
+    text-decoration: underline;
+    margin-bottom: 15px;
+}
+
+.rate_the_movie_button{
+    width: 180px;
+    height: 40px;
+    font-family: Jost-Regular, serif;
+    font-size: 24px;
+    background-color: #B5C6B8;
+    border-radius: 10px;
+    border-color: transparent;
+    color: #222831;
+}
+
+@font-face {
+    font-family: "Jost-Regular";
+    src: url("../fonts/Jost-Regular.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Jost-Bold";
+    src: url("../fonts/Jost-Bold.ttf");
+    font-style: normal;
+    font-weight: bold;
+}

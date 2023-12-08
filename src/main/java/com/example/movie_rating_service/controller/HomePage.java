@@ -34,7 +34,6 @@ public class HomePage {
         return "homepage";
     }
 
-
     /*@PostMapping("/homepage")
     public String homePage(Model model,@RequestParam(name = "genre", required = false) Long genre,
                              @RequestParam(name = "startYear", required = false) Integer startYear,

@@ -38,6 +38,9 @@ public class Film {
     @Column(name = "director", nullable = false, length = 45)
     private String director;
 
+    @Column(name = "country", nullable = false, length = 100)
+    private String country;
+
     @Column(name = "release_date", nullable = false)
     private Date releaseDate;
 
@@ -46,10 +49,6 @@ public class Film {
 
     @Column(name = "average_rating", nullable = false)
     private double averageRating;
-
-    @ManyToOne
-    @JoinColumn(name = "rating_id")
-    private Rating rating;
 
     @ManyToMany
     @JoinTable(name = "film_likes",

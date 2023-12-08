@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Films</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../static/css/films-gallery.css" rel="stylesheet">
 </head>
 <body>
 
@@ -14,18 +15,10 @@
         <img src="../static/icons/site_name_and_logo.svg" alt="Site Icon">
     </div>
 
-    <div class="navigation">
-        <h1 class="films">
-            Film Gallery
-        </h1>
-        <h2 class="rating">
-            Rating
-        </h2>
-        <div class="search-bar">
-            <input type="text" class="search-input" placeholder="Search...">
-            <div class="search-icon">
-                <img src="../static/icons/lupa_icon.svg" alt="Search Icon">
-            </div>
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search...">
+        <div class="search-icon">
+            <img src="../static/icons/lupa_icon.svg" alt="Search Icon">
         </div>
     </div>
 
@@ -35,10 +28,9 @@
 </div>
 
 <table class="main_table">
-    <link href="../static/css/films_gallery.css" rel="stylesheet">
     <tr>
         <td class="sorting_column"> <!--Первый столбец-->
-            <form th:action="@{/homepage}" th:method="post">
+            <form th:action="@{/homepage}" th:method="post" autocomplete="off">
                 <div class="sorting_table"> <!-- Таблица сортирвки -->
                     <div class="titles_sorting_table">
                         Genres
@@ -100,7 +92,12 @@
 
                     <div class="film-details">
                         <!-- Название фильма -->
-                        <div class="film-title" th:text="${film.getFilmName}"></div>
+                        <div class="film-title">
+                            <a th:href="@{/film/{filmId}(filmId=${film.getFilmId})}">
+                                <span th:text="${film.getFilmName}"
+                                      style="color: #222831; text-decoration: underline;"></span>
+                            </a>
+                        </div>
 
                         <!-- Год выпуска, Продолжительность фильма -->
                         <div class="film-year-and-duration">

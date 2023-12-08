@@ -25,19 +25,6 @@ body {
     color: #EEEEEE;
 }
 
-.films{
-    font-family: "Jost-Bold", serif;
-    font-size: 20px;
-    margin-right: 30px;
-}
-
-.rating{
-    font-family: "Jost-Bold", serif;
-    font-size: 20px;
-    margin-right: 30px;
-
-}
-
 .search-bar {
     display: flex;
     align-items: center;

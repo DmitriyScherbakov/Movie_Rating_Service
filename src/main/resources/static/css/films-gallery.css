@@ -86,6 +86,7 @@ body {
     font-family: "Jost-Bold", serif;
     font-size: 20px;
     /*align-self: flex-start;*/
+    text-decoration: underline;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -154,8 +155,10 @@ body {
 .film-title {
     font-family: Jost-Bold, serif;
     font-size: 24px;
+    color: #222831;
 }
 
+/* Остальные стили для дочерних элементов film-card */
 .film-year,
 .film-duration,
 .film-rating,

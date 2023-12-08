@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${film.getFilmName}"></title>
+    <link href="../static/css/film-details.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <link href="../static/css/header.css" rel="stylesheet">
+    <div class="logo">
+        <img src="../static/icons/site_name_and_logo.svg" alt="Site Icon">
+    </div>
+
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search...">
+        <div class="search-icon">
+            <img src="../static/icons/lupa_icon.svg" alt="Search Icon">
+        </div>
+    </div>
+
+
+    <div class="profile-icon">
+        <img src="../static/icons/profile_icon.svg" alt="Profile Icon" width="40px" height="40px">
+    </div>
+</div>
+
+<div>
+    <div class="rectangle">
+        <table class="main_table">
+            <tr class="film_row">
+                <td class="poster_column">
+                    <div>
+                        <img class="film-poster" th:src="${film.getFilmImageUrl}" alt="Film Poster">
+                    </div>
+                    <div>
+                        <a th:href="${film.getTrailerUrl}" target="_blank">
+                            <button class="trailer_button">Watch Trailer</button>
+                        </a>
+                    </div>
+                </td>
+                <td class="info_desc_column">
+                    <div class="film_name" th:text="${film.getFilmName().toUpperCase()}"></div>
+                    <div class="about_film_titles">About Film</div>
+                    <table class="description_table">
+                        <tr class="description_row">
+                            <td class="description_column">
+                                <div class="text" style="margin-right: 70px"> Release date</div>
+                            </td>
+                            <td>
+                                <div class="text" th:text="${film.getReleaseDate()}"></div>
+                            </td>
+                        </tr>
+                        <tr class="description_row">
+                            <td>
+                                <div class="text"> Genre</div>
+                            </td>
+                            <td>
+                                <div class="text" th:each="genre, iterStat: ${film.getGenres()}">
+                                    <span th:text="${genre.getGenreName()}"></span>
+                                    <span th:if="${!iterStat.last}">, </span>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="description_row">
+                            <td>
+                                <div class="text"> Director</div>
+                            </td>
+                            <td>
+                                <div class="text" th:text="${film.getDirector()}"></div>
+                            </td>
+                        </tr>
+                        <tr class="description_row">
+                            <td>
+                                <div class="text"> Country</div>
+                            </td>
+                            <td>
+                                <div class="text" th:text="${film.getCountry()}"></div>
+                            </td>
+                        </tr>
+                        <tr class="description_row">
+                            <td>
+                                <div class="text"> Duration</div>
+                            </td>
+                            <td>
+                                <div class="text" th:text="${film.getDuration()}"></div>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="about_film_titles">Description</div>
+                    <div class="text" th:text="${film.getDescription()}"></div>
+                </td>
+                <td class="rating_column">
+                    <div class="average_title"> Average rating</div>
+                    <div class="rating_number" th:text="${film.getAverageRating()}"
+                         th:class="${film.getAverageRating() >= 8.0} ? 'gold_rating' : 'rating_number'"></div>
+                    <button class="rate_the_movie_button">Rate the movie</button>
+                </td>
+            </tr>
+            <tr class="reviews_row">
+
+            </tr>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>

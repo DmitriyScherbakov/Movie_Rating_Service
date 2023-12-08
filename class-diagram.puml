@@ -1,0 +1,204 @@
+@startuml
+class com.example.movie_rating_service.service.EventService {
+- EventRepository eventRepository
++ List<Event> getAllEvents()
++ Event getEventById(long)
++ void createEvent(Event)
++ void updateEvent(Long,Event)
++ void deleteEventById(long)
+}
+class com.example.movie_rating_service.service.ReviewService {
+- ReviewRepository reviewRepository
++ List<Review> getAllReviews()
++ Review getReviewById(long)
++ void createReview(Review)
++ void updateReview(Long,Review)
++ void deleteReviewById(long)
+}
+class com.example.movie_rating_service.service.GenreService {
+- GenreRepository genreRepository
++ List<Genre> getAllGenres()
++ Genre getGenreById(Long)
++ void createGenre(Genre)
++ void updateGenre(Long,Genre)
++ void deleteGenreById(long)
+}
+interface com.example.movie_rating_service.repositories.GenreRepository {
+}
+class com.example.movie_rating_service.config.SecurityConfig {
+- UserDetailsServiceImpl userDetailsService
++ DaoAuthenticationProvider daoAuthenticationProvider()
++ SecurityFilterChain securityFilterChain(HttpSecurity)
++ PasswordEncoder passwordEncoder()
+}
+class com.example.movie_rating_service.model.Grade {
+- long gradeId
+- ApplicationUser user
+- Film film
+- int gradeByUser
+}
+interface com.example.movie_rating_service.repositories.EventRepository {
+}
+class com.example.movie_rating_service.model.Genre {
+- long genreId
+- String genreName
+- List<Film> films
+}
+class com.example.movie_rating_service.config.UserDetailsServiceImpl {
+- ApplicationUserRepository applicationUserRepository
++ UserDetailsImpl loadUserByUsername(String)
+}
+class com.example.movie_rating_service.controller.HomePage {
+- FilmService filmService
+- GenreService genreService
++ String homePage(Model)
++ String homePage(Model,Genre,Integer,Integer,Double,Double)
+}
+class com.example.movie_rating_service.service.GradeService {
+- GradeRepository gradeRepository
++ List<Grade> getAllGrades()
++ Grade getGradeById(long)
++ void createGrade(Grade)
++ void updateGrade(Long,Grade)
++ void deleteGradeById(long)
+}
+interface com.example.movie_rating_service.repositories.FilmRepository {
+~ ArrayList<Film> findFilmsByGenresContainsAndReleaseDateBetweenAndAverageRatingBetween(Genre,Date,Date,double,double)
+~ ArrayList<Film> findFilmsByReleaseDateBetweenAndAverageRatingBetween(Date,Date,double,double)
+}
+enum com.example.movie_rating_service.model.enums.EventType {
++  LIKE
++  REVIEW
++  GRADE
+}
+interface com.example.movie_rating_service.repositories.ReviewRepository {
+}
+class com.example.movie_rating_service.model.Review {
+- long reviewId
+- Film film
+- ApplicationUser user
+- String header
+- String review
+}
+class com.example.movie_rating_service.model.Event {
+- long eventId
+- LocalDateTime eventTimestamp
+- ApplicationUser user
+- EventType eventType
+- Operation operation
+}
+enum com.example.movie_rating_service.model.enums.ERole {
++  USER
++  ADMIN
+- String title
+}
+class com.example.movie_rating_service.controller.AuthController {
+- ApplicationUserRepository applicationUserRepository
+- ApplicationUserService applicationUserService
++ String signin()
++ String signup(Model)
++ String signup(ApplicationUser,Model)
+}
+class com.example.movie_rating_service.controller.ApplicationUserController {
+- ApplicationUserService applicationUserService
++ List<ApplicationUser> getAllUsers()
++ ApplicationUser getUserById(long)
+}
+class com.example.movie_rating_service.MovieRatingServiceApplication {
++ {static} void main(String[])
+}
+class com.example.movie_rating_service.exception.UserNotFoundException {
+}
+class com.example.movie_rating_service.HibernateUtil {
+- {static} SessionFactory sessionFactory
+- {static} SessionFactory buildSessionFactory()
+}
+class com.example.movie_rating_service.service.ApplicationUserService {
+- ApplicationUserRepository applicationUserRepository
+- PasswordEncoder passwordEncoder
++ List<ApplicationUser> getAllUsers()
++ ApplicationUser getUserById(long)
++ void createUser(ApplicationUser)
+}
+class com.example.movie_rating_service.service.FilmService {
+- FilmRepository filmRepository
+- GenreService genreService
++ List<Film> getAllFilms()
++ Film getFilmById(long)
++ void createFilm(Film)
++ void updateFilm(Long,Film)
++ void deleteFilmById(long)
++ ArrayList<Film> findFilmsByGenresAndReleaseDateAndRating(Genre,Integer,Integer,Double,Double)
+}
+class com.example.movie_rating_service.model.Film {
+- long filmId
+- String filmName
+- String filmImageUrl
+- String trailerUrl
+- String description
+- String director
+- String country
+- Date releaseDate
+- long duration
+- double averageRating
+- List<ApplicationUser> users
+- Set<Grade> grades
+- Set<Review> reviews
+- List<Genre> genres
+}
+class com.example.movie_rating_service.model.ApplicationUser {
+- long id
+- String login
+- String password
+- ERole role
+- Set<Event> events
+- Set<Review> reviews
+- Set<Grade> grades
+- Set<Film> films
+}
+interface com.example.movie_rating_service.repositories.GradeRepository {
+}
+class com.example.movie_rating_service.config.MvcConfig {
++ void addResourceHandlers(ResourceHandlerRegistry)
+}
+enum com.example.movie_rating_service.model.enums.Operation {
++  REMOVE
++  ADD
++  UPDATE
+}
+interface com.example.movie_rating_service.repositories.ApplicationUserRepository {
+~ Optional<ApplicationUser> findApplicationUserByLogin(String)
+~ Boolean existsApplicationUserByLogin(String)
+}
+class com.example.movie_rating_service.config.UserDetailsImpl {
+- Long id
+- String login
+- String password
+- Collection<? extends GrantedAuthority> authorities
++ {static} UserDetailsImpl build(ApplicationUser)
++ Collection<? extends GrantedAuthority> getAuthorities()
++ String getPassword()
++ String getUsername()
++ boolean isAccountNonExpired()
++ boolean isAccountNonLocked()
++ boolean isCredentialsNonExpired()
++ boolean isEnabled()
+}
+class com.example.movie_rating_service.controller.FilmPage {
+- FilmService filmService
+- GenreService genreService
++ String getFilmDetails(Long,Model)
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.GenreRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.EventRepository
+org.springframework.security.core.userdetails.UserDetailsService <|.. com.example.movie_rating_service.config.UserDetailsServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.FilmRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.ReviewRepository
+com.example.movie_rating_service.exception.RuntimeException <|-- com.example.movie_rating_service.exception.UserNotFoundException
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.GradeRepository
+org.springframework.web.servlet.config.annotation.WebMvcConfigurer <|.. com.example.movie_rating_service.config.MvcConfig
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.ApplicationUserRepository
+org.springframework.security.core.userdetails.UserDetails <|.. com.example.movie_rating_service.config.UserDetailsImpl
+@enduml

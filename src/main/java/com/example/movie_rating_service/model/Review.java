@@ -25,6 +25,9 @@ public class Review {
     @JoinColumn(name = "user_id")
     private ApplicationUser user;
 
-    @Column(name = "review", nullable = false, length = 500)
+    @Column(name = "header_of_review", nullable = false, length = 100)
+    private String header;
+
+    @Column(name = "review", nullable = false, length = 2000)
     private String review;
 }
