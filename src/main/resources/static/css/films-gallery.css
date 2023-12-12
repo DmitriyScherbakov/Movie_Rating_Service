@@ -102,7 +102,7 @@ body {
 }
 
 /*Надпись "Sort By"*/
-.sort_by {
+/*.sort_by {
     font-family: "Jost-Bold", serif;
     font-size: 20px;
     text-decoration: underline;
@@ -111,7 +111,7 @@ body {
     justify-content: center;
     align-items: center;
     color: #222831;
-}
+}*/
 
 /*Отдельная карточка фильма*/
 .film-card {
@@ -162,8 +162,13 @@ body {
 .film-year,
 .film-duration,
 .film-rating,
-.film-trailer {
+.film-trailer,
+.film-genres{
     margin-bottom: 10px; /* Добавляем немного отступа между элементами */
+    font-family: Jost-Regular, serif;
+    font-size: 16px;
+    display: inline-flex;
+    color: #222831;
 }
 
 .film-year-and-duration {

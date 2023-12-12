@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -50,7 +51,7 @@ public class Film {
     @Column(name = "average_rating", nullable = false)
     private double averageRating;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "film_likes",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -60,11 +61,18 @@ public class Film {
     private Set<Grade> grades;
 
     @OneToMany(mappedBy = "film")
-    private Set<Review> reviews;
+    private List<Review> reviews;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "films_genres",
             joinColumns = @JoinColumn(name = "film_id"),
             inverseJoinColumns = @JoinColumn(name = "genre_id"))
     private List<Genre> genres ;
+
+    public void addUserWhoLikedFilm(ApplicationUser user) {
+        if (users == null) {
+            users = new ArrayList<>();
+        }
+        users.add(user);
+    }
 }

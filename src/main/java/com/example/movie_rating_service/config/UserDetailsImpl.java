@@ -1,6 +1,8 @@
 package com.example.movie_rating_service.config;
 
 import com.example.movie_rating_service.model.ApplicationUser;
+import lombok.Data;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.Collection;
 import java.util.List;
 
-
+@Data
 public class UserDetailsImpl implements UserDetails {
 
     private Long id;
@@ -31,6 +33,8 @@ public class UserDetailsImpl implements UserDetails {
                 applicationUser.getPassword(),
                 authorityList);
     }
+    private ApplicationUser applicationUser;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,11 +1,15 @@
 package com.example.movie_rating_service.service;
 
+import com.example.movie_rating_service.config.UserDetailsImpl;
 import com.example.movie_rating_service.model.ApplicationUser;
 import com.example.movie_rating_service.repositories.ApplicationUserRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

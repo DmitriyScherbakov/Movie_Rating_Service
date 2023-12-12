@@ -45,4 +45,8 @@ public class GradeService {
     public void deleteGradeById(long id) {
         gradeRepository.deleteById(id);
     }
+
+    public boolean hasUserAlreadyRatedFilm(long userId, long filmId) {
+        return gradeRepository.existsByUserIdAndFilmFilmId(userId, filmId);
+    }
 }

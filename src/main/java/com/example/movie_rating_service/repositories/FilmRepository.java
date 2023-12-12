@@ -18,4 +18,6 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
 
     ArrayList<Film> findFilmsByReleaseDateBetweenAndAverageRatingBetween(
             Date startReleaseDate, Date endReleaseDate, double startRating, double endRating);
+
+
 }

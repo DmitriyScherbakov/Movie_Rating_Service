@@ -1,5 +1,6 @@
 package com.example.movie_rating_service.service;
 
+import com.example.movie_rating_service.model.ApplicationUser;
 import com.example.movie_rating_service.model.Film;
 import com.example.movie_rating_service.model.Genre;
 import com.example.movie_rating_service.repositories.FilmRepository;
@@ -20,11 +21,12 @@ public class FilmService {
 
     private GenreService genreService;
 
+    private ApplicationUserService applicationUserService;
+
     @Autowired
     public FilmService(FilmRepository filmRepository) {
         this.filmRepository = filmRepository;
     }
-
 
     public List<Film> getAllFilms() {
         return filmRepository.findAll();

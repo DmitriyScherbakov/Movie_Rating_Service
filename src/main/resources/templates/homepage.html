@@ -67,23 +67,23 @@
         <td class="films_column"> <!--Второй столбец-->
             <div class="films_column_title">
                 <div class="numbers_of_movies">
-                    100 movies
+                    <!--100 movies-->
                     <!--Количество фильмов-->
                 </div>
                 <div class="title">
                     MOVIES
                 </div>
                 <div class="sort_by">
-                    Sort By >
+                    <!--Sort By >-->
                 </div>
             </div>
             <div class="film-list">
                 <div th:each="film: ${film}" class="film-card">
-                    <div class="film-info">
-                        <!-- Номер фильма в списке -->
+                   <!-- <div class="film-info">
+                        &lt;!&ndash; Номер фильма в списке &ndash;&gt;
                         <div class="film-number" th:text="${film.getFilmId}"></div>
 
-                    </div>
+                    </div>-->
 
                     <div class="film-info">
                         <!-- Постер фильма через URL на внешний ресурс -->
@@ -106,7 +106,7 @@
                         </div>
 
                         <!-- Жанр -->
-                        <div th:each="genre: ${film.getGenres()}">
+                        <div class="film-genres" th:each="genre: ${film.getGenres()}">
                             <div th:text="${genre.getGenreName()}"></div>
                         </div>
 

@@ -44,4 +44,8 @@ public class ReviewService {
     public void deleteReviewById(long id) {
         reviewRepository.deleteById(id);
     }
+
+    public Optional<Review> getReviewsByFilmId(Long filmId) {
+        return reviewRepository.findReviewByFilmFilmId(filmId);
+    }
 }

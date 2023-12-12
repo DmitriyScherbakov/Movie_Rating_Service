@@ -5,14 +5,17 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@EqualsAndHashCode(exclude = "films")
 @Table(name = "application_users")
 public class ApplicationUser {
     @Id
@@ -38,9 +41,9 @@ public class ApplicationUser {
     @OneToMany(mappedBy = "user")
     private Set<Grade> grades;
 
-    @ManyToMany
+    @ManyToMany/*(mappedBy = "application_users")*/
     @JoinTable (name="film_likes",
             joinColumns=@JoinColumn (name="user_id"),
             inverseJoinColumns=@JoinColumn(name="film_id"))
-    private Set<Film> films;
+    private List<Film> films;
 }

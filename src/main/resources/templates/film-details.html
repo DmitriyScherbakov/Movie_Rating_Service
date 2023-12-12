@@ -96,11 +96,177 @@
                     <div class="average_title"> Average rating</div>
                     <div class="rating_number" th:text="${film.getAverageRating()}"
                          th:class="${film.getAverageRating() >= 8.0} ? 'gold_rating' : 'rating_number'"></div>
-                    <button class="rate_the_movie_button">Rate the movie</button>
+                    <div class="button-container">
+
+                        <!--Кнопка выставления оценки-->
+                        <button class="rate_the_movie_button" onclick="openRatingModal()">Rate the movie</button>
+
+                        <!-- Модальное окно для оценки -->
+                        <div id="ratingModal" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onclick="closeRatingModal()">&times;</span>
+                                <h2>Rate the movie</h2>
+                                <p>Please select a rating:</p>
+                                <input type="hidden" id="filmId" th:value="${film.filmId}"/>
+                                <input type="hidden" id="userIdrating" th:value="${#authentication.getPrincipal().getId}"/>
+                                <input type="number" id="ratingInput" min="0" max="10" step="0.5" placeholder="Enter rating"/>
+                                <button onclick="submitRating()">Submit</button>
+                            </div>
+                        </div>
+
+                        <script th:inline="javascript">
+                            function openRatingModal() {
+                                var modal = document.getElementById('ratingModal');
+                                modal.style.display = 'block';
+                            }
+
+                            function closeRatingModal() {
+                                var modal = document.getElementById('ratingModal');
+                                modal.style.display = 'none';
+                            }
+
+                            function submitRating() {
+                                var userId = document.getElementById('userIdrating').value;
+                                var filmId = document.getElementById('filmId').value;
+                                var rating = document.getElementById('ratingInput').value;
+
+                                // Создание объекта для отправки на сервер
+                                var data = {
+                                    userId: userId,
+                                    filmId: filmId,
+                                    gradeByUser: parseFloat(rating)
+                                };
+
+                                // Отправка AJAX-запроса
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', '/submitGrade', true);
+                                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                                xhr.onreadystatechange = function () {
+                                    if (xhr.readyState === 4) {
+                                        if (xhr.status === 200) {
+                                            console.log('Rating submitted successfully');
+                                            closeRatingModal();
+                                        } else {
+                                            console.error('Error submitting rating');
+                                            var errorMessage = 'An error occurred while submitting the rating. ' +
+                                                'Please try again or or or check if you have rated this movie.';
+                                            displayErrorMessage(errorMessage);
+                                        }
+                                    }
+                                };
+                                xhr.send(JSON.stringify(data));
+                            }
+
+                            function displayErrorMessage(message) {
+                                // Create and display an error message element
+                                var errorElement = document.createElement('div');
+                                errorElement.className = 'error-message';
+                                errorElement.textContent = message;
+                                errorElement.style.color = 'red';
+
+                                // Append the error message to the modal content
+                                var modalContent = document.querySelector('.modal-content');
+                                modalContent.appendChild(errorElement);
+
+                                // Close the modal after a delay (you can adjust the delay)
+                                setTimeout(function () {
+                                    closeRatingModal();
+                                    // Remove the error message element after closing the modal
+                                    modalContent.removeChild(errorElement);
+                                }, 10000); // 3000 milliseconds (3 seconds)
+                            }
+                        </script>
+
+                        <!--Кнопка лайка-->
+                        <input type="hidden" name="filmId" th:value="${film.filmId}"/>
+                        <input type="hidden" id="userIdlike" th:value="${#authentication.getPrincipal().getId}"/>
+                        <button class="like_movie" onclick="likeMovie()" id="likeButton">
+                            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
+                                 xmlns="http://www.w3.org/2000/svg">
+                                <path d="M34.1491 13.903H26.16L27.7291 9.07128C28.2155 7.56277 28.2065 5.93242 27.7034 4.42966C27.2004 2.92689 26.231 1.63445 24.9436 0.750053C23.9801 0.100518 22.8082 -0.140068 21.6749 0.0790111C20.5417 0.298091 19.5358 0.959719 18.8691 1.92442L10.3364 14.4137C10.0006 14.0858 9.55463 13.9029 9.09091 13.903H1.81818C1.33597 13.903 0.873508 14.0994 0.532533 14.4489C0.191558 14.7985 0 15.2727 0 15.767V38.1359C0 38.6303 0.191558 39.1044 0.532533 39.454C0.873508 39.8036 1.33597 40 1.81818 40H9.09091C9.57312 40 10.0356 39.8036 10.3766 39.454C10.7175 39.1044 10.9091 38.6303 10.9091 38.1359V37.8899L13.5364 39.6868C13.8355 39.8905 14.1864 39.9994 14.5455 40H30.9091C31.247 40.0002 31.5782 39.9038 31.8656 39.7217C32.1531 39.5396 32.3853 39.279 32.5364 38.9692L39.1873 25.3297C39.72 24.2328 39.9982 23.0245 40 21.7992V19.9016C39.9981 18.3112 39.381 16.7866 38.2842 15.6621C37.1873 14.5376 35.7003 13.9049 34.1491 13.903ZM7.27273 36.2719H3.63636V17.6311H7.27273V36.2719ZM36.3636 21.7992C36.3624 22.4461 36.2156 23.084 35.9345 23.6633L29.7855 36.2719H15.0909L10.9091 33.4105V20.0824L21.8491 4.06065C21.9661 3.88769 22.1447 3.76884 22.3465 3.72978C22.5482 3.69071 22.7568 3.73457 22.9273 3.85187C23.5528 4.28117 24.0237 4.90885 24.268 5.63877C24.5124 6.36868 24.5166 7.16059 24.28 7.89319L21.9164 15.178C21.8255 15.4578 21.8006 15.7557 21.8439 16.0472C21.8871 16.3388 21.9972 16.6156 22.1651 16.8551C22.3329 17.0945 22.5538 17.2897 22.8096 17.4246C23.0654 17.5595 23.3487 17.6303 23.6364 17.6311H34.1491C34.7363 17.6316 35.2993 17.871 35.7145 18.2967C36.1297 18.7223 36.3632 19.2995 36.3636 19.9016V21.7992Z"
+                                      fill="currentColor"/>
+                            </svg>
+                        </button>
+
+                        <script th:inline="javascript">
+                            function likeMovie() {
+                                var filmId = /*[[${film.filmId}]]*/ '';
+                                var userId = document.getElementById('userIdlike').value; // Используем userId из скрытого поля
+                                var button = document.getElementById('likeButton');
+
+                                // Perform AJAX request to like the movie
+                                var xhr = new XMLHttpRequest();
+                                xhr.open('POST', '/likeMovie?filmId=' + filmId + '&userIdlike=' + userId, true);
+                                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                                xhr.send();
+
+                                // Disable the button after liking
+                                button.classList.add('active');
+                                button.disabled = true;
+                            }
+                        </script>
+                    </div>
                 </td>
             </tr>
             <tr class="reviews_row">
+                <td colspan="3">
+                    <div class="title-and-button-line">
+                        <div class="user-reviews-title">User Reviews > </div>
+                        <button class="create-review-button" onclick="openReviewModal()">Create new review</button>
+                    </div>
 
+                    <div id="reviewModal" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeReviewModal()">&times;</span>
+                            <h2>Create a New Review</h2>
+                            <input type="hidden" id="filmIdReview" th:value="${film.filmId}"/>
+                            <input type="hidden" id="userIdReview" th:value="${#authentication.getPrincipal().getId}"/>
+                            <form id="reviewForm">
+                                <label for="reviewHeader">Review Header:</label>
+                                <input type="text" id="reviewHeader" name="reviewHeader" required>
+
+                                <label for="reviewText">Review Text:</label>
+                                <textarea id="reviewText" name="reviewText" rows="4" required></textarea>
+
+                                <button class="submit_review_button" type="button" onclick="submitReview()">Submit Review</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+                        function openReviewModal() {
+                            var modal = document.getElementById('reviewModal');
+                            modal.style.display = 'block';
+                        }
+
+                        function closeReviewModal() {
+                            var modal = document.getElementById('reviewModal');
+                            modal.style.display = 'none';
+                        }
+
+                        function submitReview() {
+                            var reviewHeader = document.getElementById('reviewHeader').value;
+                            var reviewText = document.getElementById('reviewText').value;
+
+                            // Вы можете использовать AJAX-запрос для отправки данных на сервер
+                            // В данном примере я просто вывожу данные в консоль
+                            console.log('Review Header:', reviewHeader);
+                            console.log('Review Text:', reviewText);
+
+                            // Дополнительно: закройте модальное окно после отправки
+                            closeReviewModal();
+                        }
+                    </script>
+
+                    <div th:each="review: ${film.reviews}" class="review-card">
+                        <div class="review-title">
+                            <div class="review_owner" th:text="${review.getUser().getLogin()}"></div>
+                            <div class="review_time_stamp" th:text="${review.getTimeStamp()}"></div>
+                        </div>
+                        <div class="review_header" th:text="${review.getHeader()}"></div>
+                        <div class="review_text" th:text="${review.getReview()}"></div>
+                    </div>
+                </td>
             </tr>
         </table>
     </div>

@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -27,6 +29,9 @@ public class Review {
 
     @Column(name = "header_of_review", nullable = false, length = 100)
     private String header;
+
+    @Column(name = "time_stamp", nullable = false)
+    private Date timeStamp;
 
     @Column(name = "review", nullable = false, length = 2000)
     private String review;
