@@ -11,6 +11,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -52,6 +55,10 @@ public class FilmPage {
 
     @PostMapping("/likeMovie")
     public ResponseEntity<String> likeMovie(@RequestParam long filmId, @RequestParam long userId) {
+        if (filmId <= 0 || userId <= 0) {
+            return new ResponseEntity<>("Invalid filmId or userId", HttpStatus.BAD_REQUEST);
+        }
+
         Film film = filmService.getFilmById(filmId);
         ApplicationUser user = applicationUserService.getUserById(userId);
 
@@ -63,6 +70,7 @@ public class FilmPage {
             return new ResponseEntity<>("Error liking the movie.", HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @PostMapping("/submitGrade")
     public ResponseEntity<String> submitGrade(
@@ -96,7 +104,43 @@ public class FilmPage {
         }
     }
 
-    @PostMapping
-    public ResponseEntity<String>
+    @PostMapping("/submitReview")
+    public ResponseEntity<String> submitReview(
+            @RequestBody Map<String, Object> payload) {
+
+        try {
+            long userId = Long.parseLong(payload.get("userId").toString());
+            long filmId = Long.parseLong(payload.get("filmId").toString());
+            String reviewHeader = payload.get("reviewHeader").toString();
+            String reviewText = payload.get("reviewText").toString();
+
+            System.out.println("xui" + userId);
+            System.out.println("xui" + userId);
+            System.out.println("xui" + reviewHeader);
+            System.out.println("xui" + reviewText);
+
+            if (reviewService.hasAlreadyReceivedUserReview(userId, filmId)) {
+                System.out.println("User has already write review to the film.");
+                return new ResponseEntity<>("User has already write review to the film.", HttpStatus.BAD_REQUEST);
+            }
+
+            ApplicationUser user = applicationUserService.getUserById(userId);
+            Film film = filmService.getFilmById(filmId);
+
+            if (user != null && film != null) {
+                Review review = new Review();
+                review.setFilm(film);
+                review.setUser(user);
+                review.setHeader(reviewHeader);
+                review.setReview(reviewText);
+                reviewService.createReview(review);
+                return new ResponseEntity<>("Review submitted successfully!", HttpStatus.OK);
+            } else {
+                return new ResponseEntity<>("Error submitting the review.", HttpStatus.BAD_REQUEST);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error processing the request.", HttpStatus.BAD_REQUEST);
+        }
+    }
 }
 

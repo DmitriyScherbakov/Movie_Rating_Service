@@ -7,4 +7,6 @@ import java.util.Optional;
 
 public interface ReviewRepository extends JpaRepository<Review, Long> {
     Optional<Review> findReviewByFilmFilmId(long filmId);
+
+    boolean existsByUserIdAndFilmFilmId(long userId, long filmId);
 }

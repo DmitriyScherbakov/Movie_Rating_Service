@@ -48,4 +48,8 @@ public class ReviewService {
     public Optional<Review> getReviewsByFilmId(Long filmId) {
         return reviewRepository.findReviewByFilmFilmId(filmId);
     }
+
+    public boolean hasAlreadyReceivedUserReview(long userId, long filmId) {
+        return reviewRepository.existsByUserIdAndFilmFilmId(userId, filmId);
+    }
 }

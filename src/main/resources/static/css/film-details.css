@@ -373,12 +373,14 @@ body {
 .review-card{
     max-width: 1250px;
     height: auto;
+    width: 1250px;
     background-color: #D7EFF0;
     display: flex;
     justify-content: start;
     flex-direction: column;
     padding: 20px;
     border-radius: 10px;
+    margin-bottom: 20px;
 }
 
 .review-title{

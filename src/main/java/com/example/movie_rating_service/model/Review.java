@@ -20,18 +20,15 @@ public class Review {
     private long reviewId;
 
     @ManyToOne
-    @JoinColumn(name = "film_id")
+    @JoinColumn(name = "film_id", unique = false)
     private Film film;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", unique = false)
     private ApplicationUser user;
 
     @Column(name = "header_of_review", nullable = false, length = 100)
     private String header;
-
-    @Column(name = "time_stamp", nullable = false)
-    private Date timeStamp;
 
     @Column(name = "review", nullable = false, length = 2000)
     private String review;

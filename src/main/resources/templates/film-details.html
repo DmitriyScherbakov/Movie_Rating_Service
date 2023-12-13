@@ -145,19 +145,20 @@
                                     if (xhr.readyState === 4) {
                                         if (xhr.status === 200) {
                                             console.log('Rating submitted successfully');
-                                            closeRatingModal();
+                                            var successMessage = 'Thanks for the feedback you left';
+                                            displaySuccessMessageRate(successMessage);
                                         } else {
                                             console.error('Error submitting rating');
                                             var errorMessage = 'An error occurred while submitting the rating. ' +
                                                 'Please try again or or or check if you have rated this movie.';
-                                            displayErrorMessage(errorMessage);
+                                            displayErrorMessageRate(errorMessage);
                                         }
                                     }
                                 };
                                 xhr.send(JSON.stringify(data));
                             }
 
-                            function displayErrorMessage(message) {
+                            function displayErrorMessageRate(message) {
                                 // Create and display an error message element
                                 var errorElement = document.createElement('div');
                                 errorElement.className = 'error-message';
@@ -173,13 +174,34 @@
                                     closeRatingModal();
                                     // Remove the error message element after closing the modal
                                     modalContent.removeChild(errorElement);
-                                }, 10000); // 3000 milliseconds (3 seconds)
+                                }, 3000); // 3000 milliseconds (3 seconds)
                             }
+
+                            function displaySuccessMessageRate(message) {
+                                // Create and display an error message element
+                                var successElement = document.createElement('div');
+                                successElement.className = 'success-message';
+                                successElement.textContent = message;
+                                successElement.style.color = 'green';
+
+                                // Append the error message to the modal content
+                                var modalContent = document.querySelector('.modal-content');
+                                modalContent.appendChild(successElement);
+
+                                // Close the modal after a delay (you can adjust the delay)
+                                setTimeout(function () {
+                                    closeRatingModal();
+                                    // Remove the error message element after closing the modal
+                                    modalContent.removeChild(successElement);
+                                }, 3000); // 3000 milliseconds (3 seconds)
+                            }
+
                         </script>
 
                         <!--Кнопка лайка-->
-                        <input type="hidden" name="filmId" th:value="${film.filmId}"/>
-                        <input type="hidden" id="userIdlike" th:value="${#authentication.getPrincipal().getId}"/>
+                        <input type="hidden" name="filmIdLike" id="filmIdLike" th:value="${film.filmId}"/>
+                        <input type="hidden" id="userIdLike" th:value="${#authentication.getPrincipal().getId}"/>
+
                         <button class="like_movie" onclick="likeMovie()" id="likeButton">
                             <svg width="40" height="40" viewBox="0 0 40 40" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -189,21 +211,24 @@
                         </button>
 
                         <script th:inline="javascript">
+
                             function likeMovie() {
-                                var filmId = /*[[${film.filmId}]]*/ '';
-                                var userId = document.getElementById('userIdlike').value; // Используем userId из скрытого поля
+                                var filmId = document.querySelector('#filmIdLike').value;
+                                var userId = document.querySelector('#userIdLike').value;
                                 var button = document.getElementById('likeButton');
 
                                 // Perform AJAX request to like the movie
                                 var xhr = new XMLHttpRequest();
-                                xhr.open('POST', '/likeMovie?filmId=' + filmId + '&userIdlike=' + userId, true);
-                                xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
-                                xhr.send();
+                                xhr.open('POST', '/likeMovie', true);
+                                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                                xhr.send('filmId=' + encodeURIComponent(filmId) + '&userId=' + encodeURIComponent(userId));
 
                                 // Disable the button after liking
                                 button.classList.add('active');
                                 button.disabled = true;
                             }
+
+
                         </script>
                     </div>
                 </td>
@@ -230,8 +255,13 @@
 
                                 <button class="submit_review_button" type="button" onclick="submitReview()">Submit Review</button>
                             </form>
+                            <div id="error-message" class="error-message" style="color: red;"></div>
+                            <div id="success-message" class="success-message" style="color: green;"></div>
                         </div>
                     </div>
+
+
+
 
                     <script th:inline="javascript">
                         function openReviewModal() {
@@ -245,23 +275,68 @@
                         }
 
                         function submitReview() {
+                            var userId = document.getElementById('userIdReview').value;
+                            var filmId = document.getElementById('filmIdReview').value;
                             var reviewHeader = document.getElementById('reviewHeader').value;
                             var reviewText = document.getElementById('reviewText').value;
 
-                            // Вы можете использовать AJAX-запрос для отправки данных на сервер
-                            // В данном примере я просто вывожу данные в консоль
-                            console.log('Review Header:', reviewHeader);
-                            console.log('Review Text:', reviewText);
+                            // Creating an object to send to the server
+                            var data = {
+                                userId: userId,
+                                filmId: filmId,
+                                reviewHeader: reviewHeader,
+                                reviewText: reviewText
+                            };
 
-                            // Дополнительно: закройте модальное окно после отправки
-                            closeReviewModal();
+                            console.log("Sending data:", data)
+                            // Sending an AJAX request
+                            var xhr = new XMLHttpRequest();
+                            xhr.open('POST', '/submitReview', true);
+                            xhr.setRequestHeader('Content-Type', 'application/json;charset=UTF-8');
+                            xhr.onreadystatechange = function () {
+                                if (xhr.readyState === 4) {
+                                    if (xhr.status === 200) {
+                                        console.log('Review submitted successfully');
+                                        var successMessage = 'Thanks for the feedback you left';
+                                        displaySuccessMessage(successMessage)
+                                    } else {
+                                        console.error('Error submitting review');
+                                        var errorMessage = 'An error occurred while submitting the review. ' +
+                                            'Please try again or check if you have already submitted a review for this movie.';
+                                        displayErrorMessage(errorMessage);
+                                    }
+                                }
+                            };
+                            xhr.send(JSON.stringify(data));
                         }
+                        function displayErrorMessage(message) {
+                            // Отображение сообщения об ошибке
+                            var errorElement = document.getElementById('success-message');
+                            errorElement.innerText = message;
+
+                            // Закрытие модального окна через заданное время
+                            setTimeout(function () {
+                                closeReviewModal();
+                            }, 3000); // 3000 milliseconds (3 seconds)
+                        }
+
+                        function displaySuccessMessage(message) {
+                            // Отображение сообщения об ошибке
+                            var  successElement= document.getElementById('success-message');
+                            successElement.innerText = message;
+
+                            // Закрытие модального окна через заданное время
+                            setTimeout(function () {
+                                closeReviewModal();
+                            }, 3000); // 3000 milliseconds (3 seconds)
+                        }
+
                     </script>
+
 
                     <div th:each="review: ${film.reviews}" class="review-card">
                         <div class="review-title">
                             <div class="review_owner" th:text="${review.getUser().getLogin()}"></div>
-                            <div class="review_time_stamp" th:text="${review.getTimeStamp()}"></div>
                         </div>
                         <div class="review_header" th:text="${review.getHeader()}"></div>
                         <div class="review_text" th:text="${review.getReview()}"></div>
