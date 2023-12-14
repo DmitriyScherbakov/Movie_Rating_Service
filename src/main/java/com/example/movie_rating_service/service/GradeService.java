@@ -2,6 +2,7 @@ package com.example.movie_rating_service.service;
 
 
 import com.example.movie_rating_service.model.Grade;
+import com.example.movie_rating_service.model.Review;
 import com.example.movie_rating_service.repositories.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,5 +49,9 @@ public class GradeService {
 
     public boolean hasUserAlreadyRatedFilm(long userId, long filmId) {
         return gradeRepository.existsByUserIdAndFilmFilmId(userId, filmId);
+    }
+
+    public List<Grade> getGradesByUserId(long id){
+        return gradeRepository.findGradesByUserId(id);
     }
 }

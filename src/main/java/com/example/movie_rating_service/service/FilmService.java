@@ -40,14 +40,19 @@ public class FilmService {
 
     @Transactional
     public void createFilm(Film film) {
+        film.calculateAndSetAverageRating();
         filmRepository.save(film);
     }
 
     @Transactional
     public void updateFilm(Long id, Film updatedFilm) {
         updatedFilm.setFilmId(id);
+        updatedFilm.calculateAndSetAverageRating();
         filmRepository.save(updatedFilm);
+        // Логирование для отслеживания значения averageRating
+        System.out.println("Updated Film Average Rating: " + updatedFilm.getAverageRating());
     }
+
 
     @Transactional
     public void deleteFilmById(long id) {

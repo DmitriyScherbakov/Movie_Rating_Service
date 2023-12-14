@@ -59,7 +59,7 @@ public class Film {
     private List<ApplicationUser> users;
 
     @OneToMany(mappedBy = "film")
-    private Set<Grade> grades;
+    private List<Grade> grades;
 
     @OneToMany(mappedBy = "film")
     private List<Review> reviews;
@@ -76,4 +76,18 @@ public class Film {
         }
         users.add(user);
     }
+
+    public void calculateAndSetAverageRating() {
+        if (grades == null || grades.isEmpty()) {
+            this.averageRating = 0.0;
+        } else {
+            double sum = 0.0;
+            for (Grade grade : grades) {
+                sum += grade.getGradeByUser();
+            }
+            this.averageRating = sum / grades.size();
+        }
+    }
+
+
 }

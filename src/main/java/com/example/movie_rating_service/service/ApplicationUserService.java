@@ -1,6 +1,7 @@
 package com.example.movie_rating_service.service;
 
 import com.example.movie_rating_service.config.UserDetailsImpl;
+import com.example.movie_rating_service.exception.UserNotFoundException;
 import com.example.movie_rating_service.model.ApplicationUser;
 import com.example.movie_rating_service.repositories.ApplicationUserRepository;
 import jakarta.transaction.Transactional;
@@ -42,4 +43,28 @@ public class ApplicationUserService {
         applicationUserRepository.save(user);
     }
 
+    public Long findUserIdByUsername(String username) {
+        Optional<ApplicationUser> user = applicationUserRepository.findApplicationUserByLogin(username);
+        if (user.isPresent()) {
+            return user.get().getId();
+        } else {
+            throw new UserNotFoundException("User not found with username: " + username);
+        }
+    }
+
+    public String findUserPasswordById(Long userId) {
+        ApplicationUser user = applicationUserRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
+
+        // Получение хеша пароля
+        return user.getPassword();
+    }
+
+    public boolean checkPassword(Long userId, String rawPassword) {
+        ApplicationUser user = applicationUserRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException("User not found with ID: " + userId));
+
+        // Сравнение введенного пароля с хешем
+        return passwordEncoder.matches(rawPassword, user.getPassword());
+    }
 }

@@ -95,6 +95,7 @@ public class FilmPage {
                 grade.setFilm(film);
                 grade.setGradeByUser(gradeByUser);
                 gradeService.createGrade(grade);
+                filmService.updateFilm(filmId, film);
                 return new ResponseEntity<>("Grade submitted successfully!", HttpStatus.OK);
             } else {
                 return new ResponseEntity<>("Error submitting the grade.", HttpStatus.BAD_REQUEST);

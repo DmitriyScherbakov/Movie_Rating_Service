@@ -11,9 +11,9 @@
 
 <div class="header">
     <link href="../static/css/header.css" rel="stylesheet">
-    <div class="logo">
+    <a th:href="@{/homepage}" class="logo">
         <img src="../static/icons/site_name_and_logo.svg" alt="Site Icon">
-    </div>
+    </a>
 
     <div class="search-bar">
         <input type="text" class="search-input" placeholder="Search...">
@@ -22,9 +22,9 @@
         </div>
     </div>
 
-    <div class="profile-icon">
+    <a th:href="@{/profile}" class="profile-icon">
         <img src="../static/icons/profile_icon.svg" alt="Profile Icon" width="40px" height="40px">
-    </div>
+    </a>
 </div>
 
 <table class="main_table">
@@ -79,11 +79,6 @@
             </div>
             <div class="film-list">
                 <div th:each="film: ${film}" class="film-card">
-                   <!-- <div class="film-info">
-                        &lt;!&ndash; Номер фильма в списке &ndash;&gt;
-                        <div class="film-number" th:text="${film.getFilmId}"></div>
-
-                    </div>-->
 
                     <div class="film-info">
                         <!-- Постер фильма через URL на внешний ресурс -->

@@ -52,4 +52,8 @@ public class ReviewService {
     public boolean hasAlreadyReceivedUserReview(long userId, long filmId) {
         return reviewRepository.existsByUserIdAndFilmFilmId(userId, filmId);
     }
+
+    public List<Review> getReviewsByUserId(long id){
+        return reviewRepository.findReviewsByUserId(id);
+    }
 }

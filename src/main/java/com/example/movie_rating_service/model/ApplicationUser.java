@@ -33,9 +33,6 @@ public class ApplicationUser {
     private ERole role = ERole.USER;
 
     @OneToMany(mappedBy = "user")
-    private Set<Event> events;
-
-    @OneToMany(mappedBy = "user")
     private Set<Review> reviews;
 
     @OneToMany(mappedBy = "user")

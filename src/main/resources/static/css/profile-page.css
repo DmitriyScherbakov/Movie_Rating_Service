@@ -1,0 +1,135 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Jost-Regular", serif;
+    background-color: #EEEEEE;
+    text-align: left;
+}
+
+.rectangle{
+    width: 1250px;
+    margin: 0 auto; /* Add this line to center the .rectangle horizontally */
+    padding-top: 30px;
+    padding-bottom: 30px;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+}
+
+.login_row{
+    display: inline-flex;
+}
+
+.login{
+    font-family: Jost-Bold, serif;
+    font-size: 36px;
+    color: #222831;
+    margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+.password_title{
+    font-family: Jost-Regular, serif;
+    color: #222831;
+    font-size: 24px;
+    text-decoration: underline;
+    margin-bottom: 10px;
+}
+
+.password_area{
+    display: inline-flex;
+}
+
+.password_field{
+    min-width: 300px;
+    max-width: 500px;
+    font-family: Jost-Regular, serif;
+    color: #222831;
+    background-color: #EEEEEE;
+    font-size: 24px;
+    border: 1px solid #222831;
+    border-radius: 10px;
+    padding: 2px;
+    margin-right: 10px;
+}
+
+.custom-table{
+    width: 100%;
+}
+
+.first_column{
+    flex-direction: column;
+    padding-right: 20px;
+}
+
+.inscription{
+    font-family: Jost-Bold, serif;
+    color: #222831;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.review-card{
+    height: auto;
+    background-color: #D7EFF0;
+    display: flex;
+    justify-content: start;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.review-title{
+    font-family: Jost-Regular, serif;
+    color: #222831;
+    font-size: 25px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #DCDCDC;
+}
+
+.review_header{
+    font-family: Jost-Bold, serif;
+    color: #222831;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.review_text{
+    font-family: Jost-Regular, serif;
+    color: #222831;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.delete-button{
+    width: 160px;
+    height: 40px;
+    font-family: Jost-Bold, serif;
+    font-size: 20px;
+    background-color: #B5C6B8;
+    border-radius: 10px;
+    border-color: transparent;
+    color: #222831;
+}
+
+.second_column{
+    flex-direction: column;
+}
+
+@font-face {
+    font-family: "Jost-Regular";
+    src: url("../fonts/Jost-Regular.ttf");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Jost-Bold";
+    src: url("../fonts/Jost-Bold.ttf");
+    font-style: normal;
+    font-weight: bold;
+}

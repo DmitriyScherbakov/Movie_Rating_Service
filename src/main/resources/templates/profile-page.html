@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'Profile: ' + ${#authentication.getPrincipal().getLogin()}"></title>
+    <link href="../static/css/profile-page.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <link href="../static/css/header.css" rel="stylesheet">
+    <a th:href="@{/homepage}" class="logo">
+        <img src="../static/icons/site_name_and_logo.svg" alt="Site Icon">
+    </a>
+
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search...">
+        <div class="search-icon">
+            <img src="../static/icons/lupa_icon.svg" alt="Search Icon">
+        </div>
+    </div>
+
+
+    <a th:href="@{/profile}" class="profile-icon">
+        <img src="../static/icons/profile_icon.svg" alt="Profile Icon" width="40px" height="40px">
+    </a>
+</div>
+
+<div>
+    <div class="rectangle">
+        <div class="login_row">
+            <div class="login" th:text="${#authentication.getPrincipal().getLogin}"></div>
+            <img src="../static/icons/edit_icon.svg" alt="Edit icon">
+        </div>
+
+        <div class="table-container">
+            <table class="custom-table">
+                <tr>
+                    <td class="first_column" style="max-width: 70%;">
+                        <div class="inscription">Reviews</div>
+
+                        <div th:each="review: ${review}" class="review-card">
+                            <div class="review-title">
+                                <div class="review_owner" th:text="${review.getUser().getLogin()}"></div>
+                                <div class="review_owner" th:text="${review.getFilm().getFilmName}"></div>
+                            </div>
+                            <div class="review_header" th:text="${review.getHeader()}"></div>
+                            <div class="review_text" th:text="${review.getReview()}"></div>
+                            <button class="delete-button" onclick="">Delete review</button>
+                        </div>
+                    </td>
+                    <td class="second_column" style="max-width: 30%;">
+                        <div class="inscription">Rated movies</div>
+                        <div th:each="grade: ${grade}" class="review-card">
+                            
+                        </div>
+
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+<!--<div class="password_title">
+            Password
+        </div>
+        <div class="password_area">
+            <input class="password_field" type="password" id="passwordField" th:value="${unhashedPassword}" readonly>
+            <img src="../static/icons/close_eye.svg" alt="Toggle Visibility"
+                 onclick="togglePasswordVisibility()" style="cursor: pointer;" id="toggleButton" width="40px" height="40px" >
+
+            <script>
+                function togglePasswordVisibility() {
+                    var passwordField = document.getElementById("passwordField");
+                    var toggleButton = document.getElementById("toggleButton");
+
+                    if (passwordField.type === "password") {
+                        passwordField.type = "text";
+                        toggleButton.src = "../static/icons/open_eye.svg"; // Путь ко второму изображению
+                    } else {
+                        passwordField.type = "password";
+                        toggleButton.src = "../static/icons/close_eye.svg"; // Путь к первому изображению
+                    }
+                }
+            </script>
+        </div>-->
