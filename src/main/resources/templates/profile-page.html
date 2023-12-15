@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="'Profile: ' + ${#authentication.getPrincipal().getLogin()}"></title>
@@ -31,13 +31,19 @@
     <div class="rectangle">
         <div class="login_row">
             <div class="login" th:text="${#authentication.getPrincipal().getLogin}"></div>
-            <img src="../static/icons/edit_icon.svg" alt="Edit icon">
+            <!--<img src="../static/icons/edit_icon.svg" alt="Edit icon" style="margin-right: 20px">-->
+            <form th:action="@{/logout}" method="post" >
+                <button class="logout-button">Logout</button>
+            </form>
+            <a sec:authorize="hasAuthority('ADMIN')" th:href="@{/adminPage}" class="admin-button">
+                Go to Admin Page
+            </a>
         </div>
 
         <div class="table-container">
             <table class="custom-table">
                 <tr>
-                    <td class="first_column" style="max-width: 70%;">
+                    <td class="first_column">
                         <div class="inscription">Reviews</div>
 
                         <div th:each="review: ${review}" class="review-card">
@@ -47,15 +53,44 @@
                             </div>
                             <div class="review_header" th:text="${review.getHeader()}"></div>
                             <div class="review_text" th:text="${review.getReview()}"></div>
-                            <button class="delete-button" onclick="">Delete review</button>
+
+                            <button class="delete-button" th:onclick="'showConfirmation(' + ${review.getReviewId()} + '); return false;'">Delete review</button>
+
+                            <form th:action="@{/deleteReview}" th:method="post" th:id="'deleteReviewForm_' + ${review.getReviewId()}" style="display: none;">
+                                <input type="hidden" th:id="'reviewIdInput_' + ${review.getReviewId()}" name="reviewId" th:value="${review.getReviewId()}"/>
+                            </form>
+
+                            <script th:inline="javascript">
+                                function showConfirmation(reviewId) {
+                                    var confirmation = confirm("Вы уверены, что хотите удалить этот отзыв?");
+                                    if (confirmation) {
+                                        var form = document.getElementById('deleteReviewForm_' + reviewId);
+                                        if (form) {
+                                            form.action = '/deleteReview';
+                                            document.getElementById('reviewIdInput_' + reviewId).value = reviewId;
+                                            form.submit();
+                                        } else {
+                                            console.error("Form not found.");
+                                        }
+                                    } else {
+                                        alert("Удаление отменено.");
+                                        // Другие действия при отмене, если необходимо
+                                    }
+                                }
+                            </script>
                         </div>
                     </td>
-                    <td class="second_column" style="max-width: 30%;">
+                    <td class="second_column" >
                         <div class="inscription">Rated movies</div>
                         <div th:each="grade: ${grade}" class="review-card">
-                            
-                        </div>
+                            <div class="movie-rating">
+                                <span th:text="${grade.film.filmName}"></span>
+                                <span th:text="${grade.gradeByUser} + '/10'"></span>
 
+                                <span th:if="${grade.getUser().getId() == #authentication.getPrincipal().getId
+                                and likedFilmIds.contains(grade.film.filmId)}" class="liked">(Liked)</span>
+                            </div>
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -65,27 +100,3 @@
 
 </body>
 </html>
-
-<!--<div class="password_title">
-            Password
-        </div>
-        <div class="password_area">
-            <input class="password_field" type="password" id="passwordField" th:value="${unhashedPassword}" readonly>
-            <img src="../static/icons/close_eye.svg" alt="Toggle Visibility"
-                 onclick="togglePasswordVisibility()" style="cursor: pointer;" id="toggleButton" width="40px" height="40px" >
-
-            <script>
-                function togglePasswordVisibility() {
-                    var passwordField = document.getElementById("passwordField");
-                    var toggleButton = document.getElementById("toggleButton");
-
-                    if (passwordField.type === "password") {
-                        passwordField.type = "text";
-                        toggleButton.src = "../static/icons/open_eye.svg"; // Путь ко второму изображению
-                    } else {
-                        passwordField.type = "password";
-                        toggleButton.src = "../static/icons/close_eye.svg"; // Путь к первому изображению
-                    }
-                }
-            </script>
-        </div>-->

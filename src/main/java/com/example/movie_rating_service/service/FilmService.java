@@ -12,6 +12,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(readOnly = true)
@@ -74,5 +75,13 @@ public class FilmService {
             return filmRepository.findFilmsByGenresContainsAndReleaseDateBetweenAndAverageRatingBetween(
                     genre, startReleaseDate, endReleaseDate, defaultStartRating, defaultEndRating);
         }
+    }
+
+    public List<Long> getLikedFilmIdsByUserId(Long userId) {
+        List<Film> likedFilms = filmRepository.findLikedFilmsByUserId(userId);
+
+        return likedFilms.stream()
+                .map(Film::getFilmId)
+                .collect(Collectors.toList());
     }
 }

@@ -80,6 +80,7 @@
             <div class="film-list">
                 <div th:each="film: ${film}" class="film-card">
 
+                    <!-- Film title on the left -->
                     <div class="film-info">
                         <!-- Постер фильма через URL на внешний ресурс -->
                         <img class="film-poster" th:src="${film.getFilmImageUrl}" alt="Film Poster">
@@ -89,27 +90,28 @@
                         <!-- Название фильма -->
                         <div class="film-title">
                             <a th:href="@{/film/{filmId}(filmId=${film.getFilmId})}">
-                                <span th:text="${film.getFilmName}"
-                                      style="color: #222831; text-decoration: underline;"></span>
+                                <span th:text="${film.getFilmName}" style="color: #222831; text-decoration: underline;"></span>
                             </a>
                         </div>
 
-                        <!-- Год выпуска, Продолжительность фильма -->
-                        <div class="film-year-and-duration">
-                            <div class="film-year" th:text="${film.getReleaseDate}"></div>
-                            <div class="film-duration" th:text="${film.getDuration}"></div>
+                        <!-- Год выпуска, Продолжительность фильма в одной строке -->
+                        <div class="info_after_name">
+                            <div class="film-year-and-duration">
+                                <div class="film-year" th:text="${film.getReleaseDate} + ','"></div>
+                                <div class="film-duration" th:text="${film.getDuration} + ' minutes' "></div>
+                            </div>
+
+                            <!-- Жанры под датой и продолжительностью -->
+                            <div class="film-genres" th:each="genre, iterStat: ${film.getGenres()}">
+                                <span th:text="${genre.getGenreName()}"></span>
+                                <span th:if="${!iterStat.last}">, </span>
+                            </div>
                         </div>
 
-                        <!-- Жанр -->
-                        <div class="film-genres" th:each="genre: ${film.getGenres()}">
-                            <div th:text="${genre.getGenreName()}"></div>
-                        </div>
+                        <!-- Рейтинг в верхнем правом углу -->
+                        <div class="film-rating" th:text="'Average rating - '  + ${film.getAverageRating}"></div>
 
-
-                        <!-- Рейтинг -->
-                        <div class="film-rating" th:text="${film.getAverageRating}"></div>
-
-                        <!-- Ссылка на трейлер фильма -->
+                        <!-- Ссылка на трейлер фильма в нижнем правом углу -->
                         <a class="film-trailer" th:href="${film.getTrailerUrl}" target="_blank">Watch Trailer</a>
                     </div>
                 </div>

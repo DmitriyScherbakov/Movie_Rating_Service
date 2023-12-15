@@ -18,14 +18,37 @@ body {
 
 .login_row{
     display: inline-flex;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .login{
     font-family: Jost-Bold, serif;
     font-size: 36px;
     color: #222831;
-    margin-bottom: 10px;
-    margin-right: 10px;
+    margin-right: 20px;
+}
+
+.logout-button{
+    font-family: Jost-Regular, serif;
+    font-size: 20px;
+    color: #222831;
+    width: 100px;
+    height: 30px;
+    margin-right: 20px;
+    background-color: #B5C6B8;
+    border-radius: 10px;
+    border-color: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-button{
+    font-family: Jost-Regular, serif;
+    font-size: 24px;
+    color: #222831;
 }
 
 .password_title{
@@ -58,8 +81,11 @@ body {
 }
 
 .first_column{
+    max-width: 99%;
     flex-direction: column;
     padding-right: 20px;
+    display: flex;
+    align-items: start;
 }
 
 .inscription{
@@ -71,6 +97,7 @@ body {
 
 .review-card{
     height: auto;
+    width: 95%;
     background-color: #D7EFF0;
     display: flex;
     justify-content: start;
@@ -85,10 +112,10 @@ body {
     color: #222831;
     font-size: 25px;
     margin-bottom: 20px;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
     border-bottom: 1px solid #DCDCDC;
+    display: flex;
+    align-items: flex-start;
 }
 
 .review_header{
@@ -114,11 +141,17 @@ body {
     border-radius: 10px;
     border-color: transparent;
     color: #222831;
+    cursor: pointer;
 }
 
 .second_column{
+    min-width: 30%;
     flex-direction: column;
+    align-items: flex-start;
+    width: 30%;
+    vertical-align: top;
 }
+
 
 @font-face {
     font-family: "Jost-Regular";

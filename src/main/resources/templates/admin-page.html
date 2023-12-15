@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Page</title>
+    <link href="../static/css/admin-page.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="header">
+    <link href="../static/css/header.css" rel="stylesheet">
+    <a th:href="@{/homepage}" class="logo">
+        <img src="../static/icons/site_name_and_logo.svg" alt="Site Icon">
+    </a>
+
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Search...">
+        <div class="search-icon">
+            <img src="../static/icons/lupa_icon.svg" alt="Search Icon">
+        </div>
+    </div>
+
+
+    <a th:href="@{/profile}" class="profile-icon">
+        <img src="../static/icons/profile_icon.svg" alt="Profile Icon" width="40px" height="40px">
+    </a>
+</div>
+
+<div class="admin-container">
+    <div class="users-table">
+        <h2>All Users</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Login</th>
+                <th>Role</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.login}"></td>
+                <td th:text="${user.role}"></td>
+                <td><a th:href="@{'/editUser/' + ${user.id}}">Edit</a></td>
+                <td><a th:href="@{'/deleteUser/' + ${user.id}}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="films-table">
+        <h2>All Films</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Image URL</th>
+                <th>Trailer URL</th>
+                <th>Description</th>
+                <th>Director</th>
+                <th>Country</th>
+                <th>Release Date</th>
+                <th>Duration</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+            </thead>
+            <tbody >
+            <tr th:each="film : ${films}">
+                <td th:text="${film.filmId}"></td>
+                <td th:text="${film.filmName}"></td>
+                <td th:text="${film.filmImageUrl}"></td>
+                <td th:text="${film.trailerUrl}"></td>
+                <td th:text="${film.description}"></td>
+                <td th:text="${film.director}"></td>
+                <td th:text="${film.country}"></td>
+                <td th:text="${film.releaseDate}"></td>
+                <td th:text="${film.duration}"></td>
+                <td><a th:href="@{'/editFilm/' + ${film.filmId}}">Edit</a></td>
+                <td><a th:href="@{'/deleteFilm/' + ${film.filmId}}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,60 @@
+@startuml
+interface com.example.movie_rating_service.repositories.GenreRepository {
+}
+class com.example.movie_rating_service.config.SecurityConfig {
+- UserDetailsServiceImpl userDetailsService
++ DaoAuthenticationProvider daoAuthenticationProvider()
++ SecurityFilterChain securityFilterChain(HttpSecurity)
++ PasswordEncoder passwordEncoder()
+}
+interface com.example.movie_rating_service.repositories.ReviewRepository {
+~ Optional<Review> findReviewByFilmFilmId(long)
+~ List<Review> findReviewsByUserId(long)
+~ boolean existsByUserIdAndFilmFilmId(long,long)
+}
+class com.example.movie_rating_service.config.UserDetailsServiceImpl {
+- ApplicationUserRepository applicationUserRepository
++ UserDetailsImpl loadUserByUsername(String)
+}
+interface com.example.movie_rating_service.repositories.GradeRepository {
+~ boolean existsByUserIdAndFilmFilmId(long,long)
+~ List<Grade> findGradesByUserId(long)
+}
+class com.example.movie_rating_service.config.MvcConfig {
++ void addResourceHandlers(ResourceHandlerRegistry)
+}
+class com.example.movie_rating_service.config.UserDetailsImpl {
+- Long id
+- String login
+- String password
+- Collection<? extends GrantedAuthority> authorities
+- ApplicationUser applicationUser
++ {static} UserDetailsImpl build(ApplicationUser)
++ Collection<? extends GrantedAuthority> getAuthorities()
++ String getPassword()
++ String getUsername()
++ boolean isAccountNonExpired()
++ boolean isAccountNonLocked()
++ boolean isCredentialsNonExpired()
++ boolean isEnabled()
+}
+interface com.example.movie_rating_service.repositories.ApplicationUserRepository {
+~ Optional<ApplicationUser> findApplicationUserByLogin(String)
+~ Boolean existsApplicationUserByLogin(String)
+}
+interface com.example.movie_rating_service.repositories.FilmRepository {
+~ ArrayList<Film> findFilmsByGenresContainsAndReleaseDateBetweenAndAverageRatingBetween(Genre,Date,Date,double,double)
+~ ArrayList<Film> findFilmsByReleaseDateBetweenAndAverageRatingBetween(Date,Date,double,double)
+~ List<Film> findLikedFilmsByUserId(Long)
+}
+
+
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.GenreRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.ReviewRepository
+org.springframework.security.core.userdetails.UserDetailsService <|.. com.example.movie_rating_service.config.UserDetailsServiceImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.GradeRepository
+org.springframework.web.servlet.config.annotation.WebMvcConfigurer <|.. com.example.movie_rating_service.config.MvcConfig
+org.springframework.security.core.userdetails.UserDetails <|.. com.example.movie_rating_service.config.UserDetailsImpl
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.ApplicationUserRepository
+org.springframework.data.jpa.repository.JpaRepository <|-- com.example.movie_rating_service.repositories.FilmRepository
+@enduml

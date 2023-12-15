@@ -81,18 +81,6 @@ body {
     justify-content: space-between;
 }
 
-/*Количество фильмов*/
-.numbers_of_movies {
-    font-family: "Jost-Bold", serif;
-    font-size: 20px;
-    /*align-self: flex-start;*/
-    text-decoration: underline;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    color: #222831;
-}
-
 /*Надпись MOVIES*/
 .title {
     font-family: "Jost-Bold", serif;
@@ -101,30 +89,21 @@ body {
     color: #222831;
 }
 
-/*Надпись "Sort By"*/
-/*.sort_by {
-    font-family: "Jost-Bold", serif;
-    font-size: 20px;
-    text-decoration: underline;
-    align-self: flex-end;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-    color: #222831;
-}*/
 
 /*Отдельная карточка фильма*/
 .film-card {
     max-width: 99%;
     height: 200px;
-    display: flex; /* Используем flexbox для размещения элементов в строку */
-    align-items: center; /* Выравниваем элементы по вертикали по центру */
+    display: flex;
+    align-items: flex-start;
     justify-content: start;
-    border: 1px solid #222831; /* Просто для наглядности, можно убрать */
-    padding: 10px; /* Добавляем отступы между элементами */
+    border: 1px solid #222831;
+    padding: 10px;
     margin-bottom: 10px;
     margin-top: 10px;
     border-radius: 10px;
+    overflow: hidden; /* Add this line to prevent overflow */
+    position: relative; /* Add this line to use absolute positioning for child elements */
 }
 
 /* Номер фильма и постер */
@@ -143,38 +122,64 @@ body {
     object-fit: cover; /* Заполняем изображение внутри контейнера, сохраняя пропорции */
 }
 
-/* Если необходимо убрать перенос текста внутри элементов, добавьте следующий стиль: */
 .film-card div {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
 }
 
-/* Остальные стили для дочерних элементов film-card */
-.film-number,
+
 .film-title {
     font-family: Jost-Bold, serif;
-    font-size: 24px;
+    font-size: 32px;
     color: #222831;
+    margin-bottom: 10px;
 }
 
-/* Остальные стили для дочерних элементов film-card */
-.film-year,
-.film-duration,
-.film-rating,
-.film-trailer,
-.film-genres{
-    margin-bottom: 10px; /* Добавляем немного отступа между элементами */
-    font-family: Jost-Regular, serif;
-    font-size: 16px;
-    display: inline-flex;
+.info_after_name{
     color: #222831;
+    font-family: Jost-Regular, serif;
+    font-size: 18px;
 }
 
 .film-year-and-duration {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    margin-bottom: 10px; /* Add margin to separate from genres */
 }
+
+.film-year{
+    margin-right: 10px;
+}
+
+.film-genres{
+    display: inline-flex;
+}
+
+/* Рейтинг */
+.film-rating {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-family: Jost-Bold, serif;
+    font-size: 28px;
+    color: #222831;
+}
+
+.film-trailer {
+    position: absolute;
+    bottom: 10px;
+    right: 20px;
+    background-color: #B5C6B8;
+    border-radius: 10px;
+    border-color: transparent;
+    color: #222831;
+    padding: 5px 10px;
+    font-family: Jost-Regular, serif;
+    font-size: 20px;
+}
+
+
 
 @font-face {
     font-family: "Jost-Regular";

@@ -1,0 +1,77 @@
+@startuml
+enum com.example.movie_rating_service.model.enums.ERole {
++  USER
++  ADMIN
+- String title
+}
+class com.example.movie_rating_service.model.Grade {
+- long gradeId
+- ApplicationUser user
+- Film film
+- double gradeByUser
+}
+class com.example.movie_rating_service.exception.FilmNotFoundException {
+}
+class com.example.movie_rating_service.MovieRatingServiceApplication {
++ {static} void main(String[])
+}
+class com.example.movie_rating_service.model.Genre {
+- long genreId
+- String genreName
+- List<Film> films
+}
+class com.example.movie_rating_service.exception.UserNotFoundException {
+}
+class com.example.movie_rating_service.HibernateUtil {
+- {static} SessionFactory sessionFactory
+- {static} SessionFactory buildSessionFactory()
+}
+class com.example.movie_rating_service.model.Film {
+- long filmId
+- String filmName
+- String filmImageUrl
+- String trailerUrl
+- String description
+- String director
+- String country
+- Date releaseDate
+- long duration
+- double averageRating
+- List<ApplicationUser> users
+- List<Grade> grades
+- List<Review> reviews
+- List<Genre> genres
++ void addUserWhoLikedFilm(ApplicationUser)
++ void calculateAndSetAverageRating()
+}
+enum com.example.movie_rating_service.model.enums.EventType {
++  LIKE
++  REVIEW
++  GRADE
+}
+class com.example.movie_rating_service.model.ApplicationUser {
+- long id
+- String login
+- String password
+- ERole role
+- Set<Review> reviews
+- Set<Grade> grades
+- List<Film> films
+}
+class com.example.movie_rating_service.model.Review {
+- long reviewId
+- Film film
+- ApplicationUser user
+- String header
+- String review
+}
+enum com.example.movie_rating_service.model.enums.Operation {
++  REMOVE
++  ADD
++  UPDATE
+}
+
+
+com.example.movie_rating_service.exception.RuntimeException <|-- com.example.movie_rating_service.exception.FilmNotFoundException
+com.example.movie_rating_service.exception.RuntimeException <|-- com.example.movie_rating_service.exception.UserNotFoundException
+@enduml

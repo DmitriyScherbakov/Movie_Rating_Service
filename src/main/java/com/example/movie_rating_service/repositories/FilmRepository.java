@@ -4,6 +4,7 @@ import com.example.movie_rating_service.model.Film;
 import com.example.movie_rating_service.model.Genre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import javax.swing.text.html.Option;
 import java.util.ArrayList;
@@ -19,5 +20,7 @@ public interface FilmRepository extends JpaRepository<Film, Long> {
     ArrayList<Film> findFilmsByReleaseDateBetweenAndAverageRatingBetween(
             Date startReleaseDate, Date endReleaseDate, double startRating, double endRating);
 
+    @Query("SELECT f FROM Film f JOIN f.users u WHERE u.id = :userId")
+    List<Film> findLikedFilmsByUserId(@Param("userId") Long userId);
 
 }

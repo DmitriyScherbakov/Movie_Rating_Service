@@ -1,0 +1,95 @@
+@startuml
+class com.example.movie_rating_service.service.GenreService {
+- GenreRepository genreRepository
++ List<Genre> getAllGenres()
++ Genre getGenreById(Long)
++ void createGenre(Genre)
++ void updateGenre(Long,Genre)
++ void deleteGenreById(long)
+}
+class com.example.movie_rating_service.service.ReviewService {
+- ReviewRepository reviewRepository
++ List<Review> getAllReviews()
++ Review getReviewById(long)
++ void createReview(Review)
++ void updateReview(Long,Review)
++ void deleteReviewById(long)
++ Optional<Review> getReviewsByFilmId(Long)
++ boolean hasAlreadyReceivedUserReview(long,long)
++ List<Review> getReviewsByUserId(long)
+}
+class com.example.movie_rating_service.controller.AuthController {
+- ApplicationUserRepository applicationUserRepository
+- ApplicationUserService applicationUserService
++ String signin()
++ String signup(Model)
++ String signup(ApplicationUser,Model)
+}
+class com.example.movie_rating_service.controller.ApplicationUserController {
+- ApplicationUserService applicationUserService
++ List<ApplicationUser> getAllUsers()
++ ApplicationUser getUserById(long)
+}
+class com.example.movie_rating_service.controller.ProfilePage {
+- ApplicationUserService applicationUserService
+- ReviewService reviewService
+- GradeService gradeService
+- FilmService filmService
++ String showUserProfile(Model,Principal)
++ String deleteReview(String)
+}
+class com.example.movie_rating_service.controller.HomePage {
+- FilmService filmService
+- GenreService genreService
++ String homePage(Model)
++ String homePage(Model,Genre,Integer,Integer,Double,Double)
+}
+class com.example.movie_rating_service.service.GradeService {
+- GradeRepository gradeRepository
++ List<Grade> getAllGrades()
++ Grade getGradeById(long)
++ void createGrade(Grade)
++ void updateGrade(Long,Grade)
++ void deleteGradeById(long)
++ boolean hasUserAlreadyRatedFilm(long,long)
++ List<Grade> getGradesByUserId(long)
+}
+class com.example.movie_rating_service.controller.AdminPage {
+- ApplicationUserService applicationUserService
+- FilmService filmService
++ String showUserProfile(Model,Principal)
+}
+class com.example.movie_rating_service.controller.FilmPage {
+- FilmService filmService
+- GenreService genreService
+- ApplicationUserService applicationUserService
+- GradeService gradeService
+- ReviewService reviewService
++ String getFilmDetails(Long,Model,HttpServletRequest)
++ ResponseEntity<String> likeMovie(long,long)
++ ResponseEntity<String> submitGrade(Map<String,Object>)
++ ResponseEntity<String> submitReview(Map<String,Object>)
+}
+class com.example.movie_rating_service.service.ApplicationUserService {
+- ApplicationUserRepository applicationUserRepository
+- PasswordEncoder passwordEncoder
++ List<ApplicationUser> getAllUsers()
++ ApplicationUser getUserById(long)
++ void createUser(ApplicationUser)
++ Long findUserIdByUsername(String)
++ String findUserPasswordById(Long)
++ boolean checkPassword(Long,String)
+}
+class com.example.movie_rating_service.service.FilmService {
+- FilmRepository filmRepository
+- GenreService genreService
+- ApplicationUserService applicationUserService
++ List<Film> getAllFilms()
++ Film getFilmById(long)
++ void createFilm(Film)
++ void updateFilm(Long,Film)
++ void deleteFilmById(long)
++ ArrayList<Film> findFilmsByGenresAndReleaseDateAndRating(Genre,Integer,Integer,Double,Double)
++ List<Long> getLikedFilmIdsByUserId(Long)
+}
+@enduml

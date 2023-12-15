@@ -27,5 +27,4 @@ public class Grade {
 
     @Column(name = "grade_by_user", nullable = false)
     private double gradeByUser;
-
 }
